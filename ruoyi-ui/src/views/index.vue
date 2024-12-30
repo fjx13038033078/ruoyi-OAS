@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div ref="echartsText" style="height: 100px; display: flex; justify-content: center; align-items: center;">
+      <!-- 这里 ECharts 动画文本会被渲染 -->
+    </div>
     <div>
       <el-carousel :interval="4000" type="card" height="300px">
         <el-carousel-item>
@@ -126,6 +129,7 @@ export default {
   },
   mounted() {
     this.initVenueCourtChart(); // 初始化 echarts 柱状图
+    this.initEchartsText(); // 初始化 ECharts 动画文本
   },
   methods: {
     /** 查询公告列表 */
@@ -178,6 +182,59 @@ export default {
         }]
       };
       this.venueCourtChart.setOption(option);
+    },
+    // 初始化 ECharts 动画文本
+    initEchartsText() {
+      const chartDom = this.$refs.echartsText;
+      const myChart = echarts.init(chartDom);
+      const option = {
+        graphic: {
+          elements: [
+            {
+              type: 'text',
+              left: 'center',
+              top: 'center',
+              style: {
+                text: '古诗词交流平台',
+                fontSize: 80,
+                fontWeight: 'bold',
+                lineDash: [0, 200],
+                lineDashOffset: 0,
+                fill: 'transparent',
+                stroke: '#000',
+                lineWidth: 1
+              },
+              keyframeAnimation: {
+                duration: 3000,
+                loop: true,
+                keyframes: [
+                  {
+                    percent: 0.7,
+                    style: {
+                      fill: 'transparent',
+                      lineDashOffset: 200,
+                      lineDash: [200, 0]
+                    }
+                  },
+                  {
+                    percent: 0.8,
+                    style: {
+                      fill: 'transparent'
+                    }
+                  },
+                  {
+                    percent: 1,
+                    style: {
+                      fill: 'black'
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      };
+      myChart.setOption(option);
     }
   }
 };
