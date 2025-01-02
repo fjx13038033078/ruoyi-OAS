@@ -201,6 +201,7 @@
         <module>ruoyi-generator</module>
         <module>ruoyi-common</module>
         <module>ruoyi-featherball</module>
+        <module>ruoyi-poem</module>
     </modules>
     <packaging>pom</packaging>
 

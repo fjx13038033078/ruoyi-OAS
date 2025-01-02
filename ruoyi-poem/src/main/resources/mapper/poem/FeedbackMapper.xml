@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.poem.mapper.FeedbackMapper">
+
+    <!-- 定义结果映射 -->
+    <resultMap id="FeedbackResult" type="com.ruoyi.poem.domain.Feedback">
+        <id property="feedbackId" column="feedback_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="content" column="content"/>
+        <result property="status" column="status"/>
+        <result property="replyContent" column="reply_content"/>
+        <result property="replyTime" column="reply_time"/>
+    </resultMap>
+
+    <!-- 获取所有反馈 -->
+    <select id="getAllFeedback" resultMap="FeedbackResult">
+        SELECT * FROM ape_feedback
+    </select>
+
+    <!-- 根据反馈ID获取反馈详情 -->
+    <select id="getFeedbackById" parameterType="Long" resultMap="FeedbackResult">
+        SELECT * FROM ape_feedback WHERE feedback_id = #{feedbackId}
+    </select>
+
+    <!-- 添加反馈 -->
+    <insert id="addFeedback" parameterType="com.ruoyi.poem.domain.Feedback">
+        INSERT INTO ape_feedback (user_id, content, status, reply_content, reply_time)
+        VALUES (#{userId}, #{content}, #{status}, #{replyContent}, #{replyTime})
+    </insert>
+
+    <!-- 删除反馈 -->
+    <delete id="deleteFeedback" parameterType="Long">
+        DELETE FROM ape_feedback WHERE feedback_id = #{feedbackId}
+    </delete>
+
+</mapper>

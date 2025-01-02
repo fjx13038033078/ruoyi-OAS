@@ -443,4 +443,9 @@ public class SysRoleServiceImpl implements ISysRoleService
             return null; // 或者抛出异常或返回默认角色
         }
     }
+
+    @Override
+    public int insertDefaultRole(Long userId) {
+        return userRoleMapper.insertDefaultRole(userId);
+    }
 }

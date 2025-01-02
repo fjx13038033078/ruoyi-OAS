@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.poem.mapper.ActivityRegistrationMapper">
+
+    <!-- 定义结果映射 -->
+    <resultMap type="com.ruoyi.poem.domain.ActivityRegistration" id="ActivityRegistrationResult">
+        <id property="registrationId" column="registration_id"/>
+        <result property="activityId" column="activity_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="registerTime" column="register_time"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <!-- 查询所有活动报名信息 -->
+    <select id="getAllActivityRegistrations" resultMap="ActivityRegistrationResult">
+        SELECT * FROM ape_activity_registration ORDER BY registration_id DESC
+    </select>
+
+    <!-- 根据报名ID查询活动报名信息 -->
+    <select id="getActivityRegistrationById" parameterType="Long" resultMap="ActivityRegistrationResult">
+        SELECT * FROM ape_activity_registration WHERE registration_id = #{registrationId}
+    </select>
+
+    <!-- 根据活动ID查询活动报名信息 -->
+    <select id="getActivityRegistrationsByActivityId" parameterType="Long" resultMap="ActivityRegistrationResult">
+        SELECT * FROM ape_activity_registration WHERE activity_id = #{activityId}
+    </select>
+
+    <!-- 根据用户ID查询活动报名信息 -->
+    <select id="getActivityRegistrationsByUserId" parameterType="Long" resultMap="ActivityRegistrationResult">
+        SELECT * FROM ape_activity_registration WHERE user_id = #{userId} ORDER BY registration_id DESC
+    </select>
+
+    <!-- 添加活动报名信息 -->
+    <insert id="addActivityRegistration" parameterType="com.ruoyi.poem.domain.ActivityRegistration">
+        INSERT INTO ape_activity_registration (activity_id, user_id, register_time, status)
+        VALUES (#{activityId}, #{userId}, NOW(), #{status})
+    </insert>
+
+    <!-- 更新活动报名信息 -->
+    <update id="updateActivityRegistration" parameterType="com.ruoyi.poem.domain.ActivityRegistration">
+        UPDATE ape_activity_registration
+        SET activity_id = #{activityId},
+            user_id = #{userId},
+            register_time = NOW(),
+            status = #{status}
+        WHERE registration_id = #{registrationId}
+    </update>
+
+    <!-- 删除活动报名信息 -->
+    <delete id="deleteActivityRegistration" parameterType="Long">
+        DELETE FROM ape_activity_registration WHERE registration_id = #{registrationId}
+    </delete>
+
+</mapper>

@@ -178,4 +178,12 @@ public interface ISysRoleService
      * @return
      */
     public String selectStringRoleByUserId(Long userId);
+
+    /**
+     * 用户仅有一个角色时获取用户角色key
+     *
+     * @param userId
+     * @return
+     */
+    public int insertDefaultRole(Long userId);
 }
