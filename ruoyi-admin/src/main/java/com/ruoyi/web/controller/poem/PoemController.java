@@ -26,7 +26,6 @@ public class PoemController extends BaseController {
      */
     @GetMapping("/listAll")
     public TableDataInfo listAllPoems() {
-        startPage();
         List<Poem> allPoems = poemService.getAllPoems();
         return getDataTable(allPoems);
     }

@@ -34,6 +34,12 @@ public class Poem implements Serializable {
     private Long userId;
 
     /**
+     * 用户姓名
+     */
+    @TableField(exist = false)
+    private String userName;
+
+    /**
      * 诗词标题
      */
     private String poemTitle;

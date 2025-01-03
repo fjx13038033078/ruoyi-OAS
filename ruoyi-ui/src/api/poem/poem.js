@@ -12,7 +12,7 @@ export function listAllPoems(query) {
 // 查询诗词详细信息
 export function getPoemById(poemId) {
   return request({
-    url: '/poem/poem/get',
+    url: '/poem/poem/detail',
     method: 'get',
     params: { poemId }
   })

@@ -1,13 +1,19 @@
 package com.ruoyi.poem.service.impl;
 
+import com.ruoyi.common.utils.SecurityUtils;
 import com.ruoyi.poem.domain.Poem;
 import com.ruoyi.poem.mapper.PoemMapper;
 import com.ruoyi.poem.service.PoemService;
+import com.ruoyi.system.service.ISysRoleService;
+import com.ruoyi.system.service.ISysUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.ruoyi.common.utils.PageUtils.startPage;
 
 /**
  * @Author 范佳兴
@@ -16,7 +22,12 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class PoemServiceImpl implements PoemService {
+
     private final PoemMapper poemMapper;
+
+    private final ISysUserService iSysUserService;
+
+    private final ISysRoleService iSysRoleService;
 
     /**
      * 获取所有古诗词
@@ -25,7 +36,20 @@ public class PoemServiceImpl implements PoemService {
      */
     @Override
     public List<Poem> getAllPoems() {
-        return poemMapper.getAllPoems();
+        Long userId = SecurityUtils.getUserId();
+        String role = iSysRoleService.selectStringRoleByUserId(userId);
+        if (role.equals("admin")) {
+            startPage();
+            List<Poem> allPoems = poemMapper.getAllPoems();
+            fillUserName(allPoems);
+            return allPoems;
+        } else {
+            startPage();
+            List<Poem> PoemsWithCheck = poemMapper.getAllPoems().stream()
+                    .filter(poem -> poem.getStatus() == 1 || poem.getUserId().equals(userId))
+                    .collect(Collectors.toList());
+            return PoemsWithCheck;
+        }
     }
 
     /**
@@ -48,6 +72,10 @@ public class PoemServiceImpl implements PoemService {
     @Override
     @Transactional
     public boolean addPoem(Poem poem) {
+        //获取当前登录用户ID
+        Long userId = SecurityUtils.getUserId();
+        poem.setUserId(userId);
+        poem.setStatus(0);
         int rows = poemMapper.addPoem(poem);
         return rows > 0;
     }
@@ -76,5 +104,14 @@ public class PoemServiceImpl implements PoemService {
     public boolean deletePoem(Long poemId) {
         int rows = poemMapper.deletePoem(poemId);
         return rows > 0;
+    }
+
+    //填充用户姓名
+    private void fillUserName(List<Poem> poems) {
+        for (Poem poem : poems) {
+            Long userId = poem.getUserId();
+            String userName = iSysUserService.selectUserById(userId).getNickName();
+            poem.setUserName(userName);
+        }
     }
 }
