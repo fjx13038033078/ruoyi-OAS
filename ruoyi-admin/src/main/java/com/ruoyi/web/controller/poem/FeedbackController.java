@@ -16,7 +16,7 @@ import java.util.List;
  */
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/feedback")
+@RequestMapping("poem/feedback")
 public class FeedbackController extends BaseController {
     private final FeedbackService feedbackService;
 
@@ -24,7 +24,7 @@ public class FeedbackController extends BaseController {
      * 获取所有反馈
      * @return 反馈列表
      */
-    @GetMapping("/poem/listAll")
+    @GetMapping("/listAll")
     public TableDataInfo listAllFeedback() {
         startPage();
         List<Feedback> allFeedback = feedbackService.getAllFeedback();
@@ -49,6 +49,16 @@ public class FeedbackController extends BaseController {
     @PostMapping("/add")
     public AjaxResult addFeedback(@RequestBody Feedback feedback) {
         return toAjax(feedbackService.addFeedback(feedback));
+    }
+
+    /**
+     * 回复反馈
+     * @param feedback 反馈对象
+     * @return 操作结果
+     */
+    @PostMapping("/reply")
+    public AjaxResult replyFeedback(@RequestBody Feedback feedback) {
+        return toAjax(feedbackService.replyFeedback(feedback));
     }
 
     /**

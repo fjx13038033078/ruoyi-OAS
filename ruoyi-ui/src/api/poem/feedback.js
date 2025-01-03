@@ -1,10 +1,11 @@
 import request from '@/utils/request'
 
 // 获取反馈列表
-export function listAllFeedback() {
+export function listAllFeedback(query) {
   return request({
     url: '/poem/feedback/listAll',
-    method: 'get'
+    method: 'get',
+    params: query
   })
 }
 
@@ -26,11 +27,20 @@ export function addFeedback(data) {
   })
 }
 
+// 回复反馈
+export function replyFeedback(data) {
+  return request({
+    url: '/poem/feedback/reply',
+    method: 'post',
+    data: data
+  })
+}
+
 // 删除反馈
 export function deleteFeedback(feedbackId) {
   return request({
     url: '/poem/feedback/delete',
     method: 'get',
-    data: {feedbackId}
+    params: {feedbackId}
   })
 }

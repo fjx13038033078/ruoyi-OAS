@@ -33,4 +33,11 @@
         DELETE FROM ape_feedback WHERE feedback_id = #{feedbackId}
     </delete>
 
+    <!-- 回复反馈 -->
+    <update id="replyFeedback" parameterType="com.ruoyi.poem.domain.Feedback">
+        UPDATE ape_feedback
+        SET status = #{status}, reply_content = #{replyContent}, reply_time = #{replyTime}
+        WHERE feedback_id = #{feedbackId}
+    </update>
+
 </mapper>

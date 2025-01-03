@@ -40,4 +40,12 @@ public interface FeedbackService {
      * @return 是否删除成功
      */
     boolean deleteFeedback(Long feedbackId);
+
+    /**
+     * 回复反馈
+     *
+     * @param feedback 反馈信息
+     * @return 是否回复成功
+     */
+    boolean replyFeedback(Feedback feedback);
 }

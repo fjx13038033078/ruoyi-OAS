@@ -42,4 +42,12 @@ public interface FeedbackMapper {
      * @return 影响行数
      */
     int deleteFeedback(Long feedbackId);
+
+    /**
+     * 回复反馈
+     *
+     * @param feedback 反馈信息
+     * @return 影响行数
+     */
+    int replyFeedback(Feedback feedback);
 }

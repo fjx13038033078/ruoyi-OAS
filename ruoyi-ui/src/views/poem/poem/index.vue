@@ -23,7 +23,8 @@
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center" width="280px">
+      <el-table-column label="操作" align="center" width="400"
+                       fixed="right">
         <template #default="scope">
           <el-button
             v-if="scope.row.status === 0"
@@ -132,7 +133,7 @@
 </template>
 
 <script>
-import { listAllPoems, addPoem, updatePoem, deletePoem, getPoemById } from '@/api/poem/poem'
+import {listAllPoems, addPoem, updatePoem, deletePoem, getPoemById} from '@/api/poem/poem'
 import {addComment, deleteComment, listCommentsByPoemId} from "@/api/poem/comment";
 
 export default {
@@ -168,9 +169,9 @@ export default {
       commentDialogVisible: false,
       newComment: '',
       rules: {
-        poemTitle: [{ required: true, message: '请输入标题', trigger: 'blur' }],
-        poemAuthor: [{ required: true, message: '请输入作者', trigger: 'blur' }],
-        poemContent: [{ required: true, message: '请输入内容', trigger: 'blur' }],
+        poemTitle: [{required: true, message: '请输入标题', trigger: 'blur'}],
+        poemAuthor: [{required: true, message: '请输入作者', trigger: 'blur'}],
+        poemContent: [{required: true, message: '请输入内容', trigger: 'blur'}],
       }
     }
   },
@@ -222,7 +223,7 @@ export default {
       })
     },
     confirmAudit() {
-      updatePoem( this.poemForm ).then(() => {
+      updatePoem(this.poemForm).then(() => {
         this.$message.success('审核成功')
         this.auditDialogVisible = false
         this.fetchPoems() // 重新加载诗词列表
@@ -243,12 +244,12 @@ export default {
     },
     handleView(row) {
       getPoemById(row.poemId).then(response => {
-        this.viewPoemForm = { ...response.data }
+        this.viewPoemForm = {...response.data}
         this.viewDialogVisible = true
       })
     },
     handleAudit(row) {
-      this.poemForm = { ...row }
+      this.poemForm = {...row}
       this.poemForm.status = 1
       this.auditDialogVisible = true
     },
