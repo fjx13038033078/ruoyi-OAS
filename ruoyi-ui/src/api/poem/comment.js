@@ -31,7 +31,7 @@ export function addComment(data) {
 export function deleteComment(commentId) {
   return request({
     url: '/poem/comment/delete',
-    method: 'post',
-    data: { commentId }
+    method: 'get',
+    params: { commentId }
   })
 }

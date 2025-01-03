@@ -26,7 +26,7 @@
               {{ scope.row.isOutdoor === 1 ? '是' : '否' }}
             </template>
           </el-table-column>
-          <el-table-column label="操作" align="center" width="280px">
+          <el-table-column label="操作" align="center" width="350px">
             <template slot-scope="scope">
               <el-button type="info" size="mini" @click="openReviewDialog(scope.row)" v-hasPermi="['featherball:venue:review']">评论</el-button>
               <el-button type="success" size="mini" @click="handleView(scope.row)" v-hasPermi="['featherball:venue:detail']">查看</el-button>
