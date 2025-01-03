@@ -2,33 +2,33 @@
   <div class="app-container">
     <el-row :gutter="20">
       <!--部门数据-->
-      <el-col :span="4" :xs="24">
-        <div class="head-container">
-          <el-input
-            v-model="deptName"
-            placeholder="请输入部门名称"
-            clearable
-            size="small"
-            prefix-icon="el-icon-search"
-            style="margin-bottom: 20px"
-          />
-        </div>
-        <div class="head-container">
-          <el-tree
-            :data="deptOptions"
-            :props="defaultProps"
-            :expand-on-click-node="false"
-            :filter-node-method="filterNode"
-            ref="tree"
-            node-key="id"
-            default-expand-all
-            highlight-current
-            @node-click="handleNodeClick"
-          />
-        </div>
-      </el-col>
+<!--      <el-col :span="4" :xs="24">-->
+<!--        <div class="head-container">-->
+<!--          <el-input-->
+<!--            v-model="deptName"-->
+<!--            placeholder="请输入部门名称"-->
+<!--            clearable-->
+<!--            size="small"-->
+<!--            prefix-icon="el-icon-search"-->
+<!--            style="margin-bottom: 20px"-->
+<!--          />-->
+<!--        </div>-->
+<!--        <div class="head-container">-->
+<!--          <el-tree-->
+<!--            :data="deptOptions"-->
+<!--            :props="defaultProps"-->
+<!--            :expand-on-click-node="false"-->
+<!--            :filter-node-method="filterNode"-->
+<!--            ref="tree"-->
+<!--            node-key="id"-->
+<!--            default-expand-all-->
+<!--            highlight-current-->
+<!--            @node-click="handleNodeClick"-->
+<!--          />-->
+<!--        </div>-->
+<!--      </el-col>-->
       <!--用户数据-->
-      <el-col :span="20" :xs="24">
+      <el-col :span="24" :xs="24">
         <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
           <el-form-item label="用户名称" prop="userName">
             <el-input
@@ -153,7 +153,7 @@
               ></el-switch>
             </template>
           </el-table-column>
-          <el-table-column label="余额" align="center" key="balance" prop="balance" v-if="columns[6].visible" />
+<!--          <el-table-column label="余额" align="center" key="balance" prop="balance" v-if="columns[6].visible" />-->
           <el-table-column label="创建时间" align="center" prop="createTime" v-if="columns[6].visible" width="160">
             <template slot-scope="scope">
               <span>{{ parseTime(scope.row.createTime) }}</span>
