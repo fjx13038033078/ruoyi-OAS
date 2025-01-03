@@ -27,7 +27,6 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public List<Activity> getAllActivities() {
         List<Activity> activities = activityMapper.getAllActivities();
-        fillActivityStatus(activities);
         return activities;
     }
 
@@ -50,7 +49,6 @@ public class ActivityServiceImpl implements ActivityService {
      */
     @Override
     public boolean addActivity(Activity activity) {
-        validateDuplicateActivity(activity);
         int rows = activityMapper.addActivity(activity);
         return rows > 0;
     }
@@ -63,12 +61,6 @@ public class ActivityServiceImpl implements ActivityService {
      */
     @Override
     public boolean updateActivity(Activity activity) {
-        if (!isActivityNameChanged(activity)) {
-            int rows = activityMapper.updateActivity(activity);
-            return rows > 0;
-        }
-
-        validateDuplicateActivity(activity);
         int rows = activityMapper.updateActivity(activity);
         return rows > 0;
     }
@@ -83,39 +75,5 @@ public class ActivityServiceImpl implements ActivityService {
     public boolean deleteActivity(Long activityId) {
         int rows = activityMapper.deleteActivity(activityId);
         return rows > 0;
-    }
-
-    /**
-     * 填充活动状态
-     * @param activities 活动列表
-     */
-    private void fillActivityStatus(List<Activity> activities) {
-        for (Activity activity : activities) {
-            if (activity.getEndTime().isBefore(java.time.LocalDateTime.now())) {
-                activity.setStatus("已结束");
-            } else {
-                activity.setStatus("进行中");
-            }
-        }
-    }
-
-    /**
-     * 校验活动是否重复
-     * @param activity 活动信息
-     */
-    private void validateDuplicateActivity(Activity activity) {
-//        if (activityMapper.countByNameAndDate(activity.getActivityName(), activity.getStartTime()) > 0) {
-//            throw new RuntimeException("该活动已存在，不能重复添加");
-//        }
-    }
-
-    /**
-     * 判断活动名称是否变化
-     * @param activity 活动信息
-     * @return true 如果名称有变化，否则 false
-     */
-    private boolean isActivityNameChanged(Activity activity) {
-        Activity existingActivity = activityMapper.getActivityById(activity.getActivityId());
-        return !existingActivity.getActivityName().equals(activity.getActivityName());
     }
 }
