@@ -17,11 +17,12 @@
         <el-table-column label="活动结束时间" prop="endTime" align="center"></el-table-column>
         <el-table-column label="状态" align="center">
           <template #default="scope">
-            {{ scope.row.status === '1' ? '可预约' : '不可预约' }}
+            {{ scope.row.status === 1 ? '可预约' : '不可预约' }}
           </template>
         </el-table-column>
-        <el-table-column label="操作" align="center" width="250px">
+        <el-table-column label="操作" align="center" width="350px">
           <template #default="scope">
+            <el-button type="info" size="mini" @click="handleReservation(scope.row)">预约</el-button>
             <el-button type="primary" size="mini" @click="handleView(scope.row)">查看详情</el-button>
             <el-button type="warning" size="mini" @click="handleEdit(scope.row)">修改</el-button>
             <el-button type="danger" size="mini" @click="handleDelete(scope.row)">删除</el-button>
@@ -106,6 +107,7 @@
 <script>
 import { listAllActivities, addActivity, updateActivity, deleteActivity } from '@/api/poem/activity';
 import { MessageBox } from 'element-ui';
+import {addRegistration} from "@/api/poem/activityRegistration";
 
 export default {
   data() {
@@ -156,6 +158,22 @@ export default {
       this.dialogTitle = '修改活动';
       this.addDialogVisible = true;
       this.activityData = { ...row };
+    },
+    // 活动报名
+    handleReservation(row){
+      this.$confirm('确定要预约该活动吗？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        const data = {
+          activityId: row.activityId
+        };
+        addRegistration(data).then(() => {
+          this.$message.success('预约成功');
+          this.fetchActivityList();  // 刷新活动列表
+        });
+      })
     },
     submitActivity() {
       this.$refs.activityForm.validate(valid => {

@@ -48,6 +48,7 @@ public class PoemServiceImpl implements PoemService {
             List<Poem> PoemsWithCheck = poemMapper.getAllPoems().stream()
                     .filter(poem -> poem.getStatus() == 1 || poem.getUserId().equals(userId))
                     .collect(Collectors.toList());
+            fillUserName(PoemsWithCheck);
             return PoemsWithCheck;
         }
     }

@@ -60,7 +60,7 @@ public class Activity implements Serializable {
     /**
      * 状态（1-可预约，0-不可预约）
      */
-    private String status;
+    private Integer status;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
