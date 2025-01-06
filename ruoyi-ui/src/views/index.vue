@@ -54,7 +54,7 @@
         <!-- 场馆场地数量 -->
         <el-col :span="12">
           <el-card style="margin-right: 20px; height: 420px;">
-            <h3 slot="header">场地数量</h3>
+            <h3 slot="header">古诗词发布排行榜</h3>
               <div id="venueCourtChart" style="height: 300px;"></div> <!-- echarts 柱状图 -->
           </el-card>
         </el-col>
