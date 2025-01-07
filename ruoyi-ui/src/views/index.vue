@@ -6,17 +6,17 @@
     <div>
       <el-carousel :interval="4000" type="card" height="300px">
         <el-carousel-item>
-          <a href="https://www.baidu.com" target="_blank">
+          <a href="https://tv.cctv.com/yxg/tbjm/scdh/index.shtml" target="_blank">
             <img src="../assets/images/01.jpg" alt="Image 1" style="width: 100%;">
           </a>
         </el-carousel-item>
         <el-carousel-item>
-          <a href="https://www.jd.com" target="_blank">
+          <a href="https://tv.cctv.com/yxg/tbjm/scdh/index.shtml" target="_blank">
             <img src="../assets/images/02.jpg" alt="Image 2" style="width: 100%;">
           </a>
         </el-carousel-item>
         <el-carousel-item>
-          <a href="https://www.taobao.com" target="_blank">
+          <a href="https://tv.cctv.com/yxg/tbjm/scdh/index.shtml" target="_blank">
             <img src="../assets/images/03.jpg" alt="Image 3" style="width: 100%;">
           </a>
         </el-carousel-item>
