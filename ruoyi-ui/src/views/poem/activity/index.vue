@@ -4,7 +4,7 @@
       <!-- 新增活动按钮 -->
       <el-row :gutter="20" class="mb-20" style="margin-bottom: 20px;">
         <el-col>
-          <el-button type="primary" @click="handleAddActivity">新增活动</el-button>
+          <el-button type="primary" @click="handleAddActivity" v-hasPermi="['poem:activity:add']">新增活动</el-button>
         </el-col>
       </el-row>
 
@@ -17,15 +17,17 @@
         <el-table-column label="活动结束时间" prop="endTime" align="center"></el-table-column>
         <el-table-column label="状态" align="center">
           <template #default="scope">
-            {{ scope.row.status === 1 ? '可预约' : '不可预约' }}
+            <el-tag :type="scope.row.status === 1 ? 'success' : 'warning'">
+              {{ scope.row.status === 1 ? '可预约' : '不可预约' }}
+            </el-tag>
           </template>
         </el-table-column>
         <el-table-column label="操作" align="center" width="350px">
           <template #default="scope">
-            <el-button type="info" size="mini" @click="handleReservation(scope.row)">预约</el-button>
+            <el-button type="info" size="mini" @click="handleReservation(scope.row)" v-hasPermi="['poem:activityRegistration:add']">预约</el-button>
             <el-button type="primary" size="mini" @click="handleView(scope.row)">查看详情</el-button>
-            <el-button type="warning" size="mini" @click="handleEdit(scope.row)">修改</el-button>
-            <el-button type="danger" size="mini" @click="handleDelete(scope.row)">删除</el-button>
+            <el-button type="warning" size="mini" @click="handleEdit(scope.row)" v-hasPermi="['poem:activity:edit']">修改</el-button>
+            <el-button type="danger" size="mini" @click="handleDelete(scope.row)" v-hasPermi="['poem:activity:delete']">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -105,8 +107,8 @@
 </template>
 
 <script>
-import { listAllActivities, addActivity, updateActivity, deleteActivity } from '@/api/poem/activity';
-import { MessageBox } from 'element-ui';
+import {listAllActivities, addActivity, updateActivity, deleteActivity} from '@/api/poem/activity';
+import {MessageBox} from 'element-ui';
 import {addRegistration} from "@/api/poem/activityRegistration";
 
 export default {
@@ -125,10 +127,10 @@ export default {
       viewDialogVisible: false, // 控制查看对话框的显示
       currentActivity: {},      // 存储当前活动的详细信息
       rules: {
-        activityName: [{ required: true, message: '请输入活动名称', trigger: 'blur' }],
-        activityLocation: [{ required: true, message: '请输入活动地点', trigger: 'blur' }],
-        startTime: [{ required: true, message: '请选择开始时间', trigger: 'change' }],
-        endTime: [{ required: true, message: '请选择结束时间', trigger: 'change' }]
+        activityName: [{required: true, message: '请输入活动名称', trigger: 'blur'}],
+        activityLocation: [{required: true, message: '请输入活动地点', trigger: 'blur'}],
+        startTime: [{required: true, message: '请选择开始时间', trigger: 'change'}],
+        endTime: [{required: true, message: '请选择结束时间', trigger: 'change'}]
       }
     }
   },
@@ -151,16 +153,16 @@ export default {
     },
     // 查看活动详情
     handleView(row) {
-      this.currentActivity = { ...row };
+      this.currentActivity = {...row};
       this.viewDialogVisible = true;
     },
     handleEdit(row) {
       this.dialogTitle = '修改活动';
       this.addDialogVisible = true;
-      this.activityData = { ...row };
+      this.activityData = {...row};
     },
     // 活动报名
-    handleReservation(row){
+    handleReservation(row) {
       this.$confirm('确定要预约该活动吗？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',

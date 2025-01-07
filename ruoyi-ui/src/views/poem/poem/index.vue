@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-row :gutter="20" class="mb-20" style="margin-bottom: 20px;">
       <el-col>
-        <el-button type="primary" @click="handleAdd">新增诗词</el-button>
+        <el-button type="primary" @click="handleAdd" v-hasPermi="['poem:poem:add']">新增诗词</el-button>
       </el-col>
     </el-row>
 
@@ -31,13 +31,17 @@
             type="success"
             size="mini"
             @click="handleAudit(scope.row)"
+            v-hasPermi="['poem:poem:audit']"
           >
             审核
           </el-button>
           <el-button type="info" size="mini" @click="openCommentDialog(scope.row)">评论</el-button>
-          <el-button size="mini" @click="handleView(scope.row)">查看</el-button>
-          <el-button type="primary" size="mini" @click="handleEdit(scope.row)">编辑</el-button>
-          <el-button type="danger" size="mini" @click="handleDelete(scope.row.poemId)">删除</el-button>
+          <el-button size="mini" @click="handleView(scope.row)" v-hasPermi="['poem:poem:detail']">查看</el-button>
+          <el-button type="primary" size="mini" @click="handleEdit(scope.row)" v-hasPermi="['poem:poem:edit']">编辑
+          </el-button>
+          <el-button type="danger" size="mini" @click="handleDelete(scope.row.poemId)"
+                     v-hasPermi="['poem:poem:delete']">删除
+          </el-button>
         </template>
       </el-table-column>
     </el-table>

@@ -23,7 +23,7 @@
             >
               取消预约
             </el-button>
-            <el-button type="danger" size="mini" @click="deleteActivityRegistration(scope.row.registrationId)">删除记录</el-button>
+            <el-button type="danger" size="mini" @click="deleteActivityRegistration(scope.row.registrationId)" v-hasPermi="['poem:activityRegistration:delete']">删除记录</el-button>
           </template>
         </el-table-column>
       </el-table>
