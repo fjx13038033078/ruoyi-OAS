@@ -13,16 +13,17 @@
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="操作" align="center" width="160px">
+        <el-table-column label="操作" align="center" width="260px">
           <template #default="scope">
             <el-button
               v-if="scope.row.status === 1"
-              type="danger"
+              type="warning"
               size="mini"
               @click="cancelRegistration(scope.row)"
             >
               取消预约
             </el-button>
+            <el-button type="danger" size="mini" @click="deleteActivityRegistration(scope.row.registrationId)">删除记录</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -41,6 +42,7 @@
 
 <script>
 import {
+  deleteRegistration,
   listAllRegistrations,
   updateRegistration
 } from '@/api/poem/activityRegistration'
@@ -78,6 +80,18 @@ export default {
         row.status = 0;  // 设置状态为取消
         updateRegistration(row).then(() => {
           this.$message.success('预约已取消');
+          this.fetchRegistrations();
+        });
+      });
+    },
+    deleteActivityRegistration(registrationId){
+      this.$confirm('确认删除该预约记录吗？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deleteRegistration(registrationId).then(() => {
+          this.$message.success('记录已删除');
           this.fetchRegistrations();
         });
       });

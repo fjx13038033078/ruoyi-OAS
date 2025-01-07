@@ -13,6 +13,7 @@
         <result property="poemContent" column="poem_content"/>
         <result property="status" column="status"/>
         <result property="poemBackground" column="poem_background"/>
+        <result property="fileName" column="file_name"/>
     </resultMap>
 
     <!-- 查询所有古诗词 -->
@@ -43,8 +44,8 @@
 
     <!-- 添加古诗词 -->
     <insert id="addPoem" parameterType="com.ruoyi.poem.domain.Poem">
-        INSERT INTO ape_poem (user_id, poem_title, poem_author, poem_content, status, poem_background)
-        VALUES (#{userId}, #{poemTitle}, #{poemAuthor}, #{poemContent}, #{status}, #{poemBackground})
+        INSERT INTO ape_poem (user_id, poem_title, poem_author, poem_content, status, poem_background, file_name)
+        VALUES (#{userId}, #{poemTitle}, #{poemAuthor}, #{poemContent}, #{status}, #{poemBackground}, #{fileName})
     </insert>
 
     <!-- 更新古诗词 -->
@@ -55,7 +56,8 @@
             poem_author = #{poemAuthor},
             poem_content = #{poemContent},
             status = #{status},
-            poem_background = #{poemBackground}
+            poem_background = #{poemBackground},
+            file_name = #{fileName}
         WHERE poem_id = #{poemId}
     </update>
 

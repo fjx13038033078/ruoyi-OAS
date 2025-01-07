@@ -64,6 +64,11 @@ public class Poem implements Serializable {
      */
     private String poemBackground;
 
+    /**
+     * 诗词附件
+     */
+    private String fileName;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }
