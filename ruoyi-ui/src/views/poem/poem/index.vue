@@ -66,6 +66,9 @@
         <el-form-item label="诗词背景" prop="poemBackground">
           <el-input v-model="poemForm.poemBackground" type="textarea" :rows="3"></el-input>
         </el-form-item>
+        <el-form-item label="附件上传">
+          <FileUpload v-model="poemForm.fileName"></FileUpload>
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取消</el-button>
@@ -86,6 +89,9 @@
         </el-form-item>
         <el-form-item label="诗词背景">
           <el-input v-model="viewPoemForm.poemBackground" type="textarea" :rows="3" disabled></el-input>
+        </el-form-item>
+        <el-form-item label="附件查看">
+          <FileUpload v-model="viewPoemForm.fileName" :is-show-tip="false" :disabled="true"></FileUpload>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -154,14 +160,16 @@ export default {
         poemAuthor: '',
         poemContent: '',
         status: 0,
-        poemBackground: ''
+        poemBackground: '',
+        fileName: ''
       },
       viewDialogVisible: false,
       viewPoemForm: {
         poemTitle: '',
         poemAuthor: '',
         poemContent: '',
-        poemBackground: ''
+        poemBackground: '',
+        fileName: ''
       },
       auditDialogVisible: false,
       selectedPoem: {}, // 保存当前选中的诗词信息
