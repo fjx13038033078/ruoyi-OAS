@@ -77,7 +77,7 @@ public class CommentServiceImpl implements CommentService {
     public boolean deleteComment(Long commentId) {
         Long userId = SecurityUtils.getUserId();
         Comment comment = commentMapper.getCommentById(commentId);
-        if (comment != null && userId == (comment.getUserId()) && userId == 1) {
+        if (comment != null && (userId == comment.getUserId() || userId == 1)) {
             int rows = commentMapper.deleteComment(commentId);
             return rows > 0;
         } else {

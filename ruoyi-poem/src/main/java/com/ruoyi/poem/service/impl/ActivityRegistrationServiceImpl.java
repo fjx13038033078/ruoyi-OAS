@@ -74,7 +74,7 @@ public class ActivityRegistrationServiceImpl implements ActivityRegistrationServ
         // 执行预约校验
         validateActivityRegistration(activityId, userId);
         ActivityRegistration registrationByActivityAndUser = activityRegistrationMapper.getRegistrationByActivityAndUser(activityId, userId);
-        if (registrationByActivityAndUser != null && registrationByActivityAndUser.getStatus() == 0){
+        if (registrationByActivityAndUser != null && registrationByActivityAndUser.getStatus() == 0) {
             activityRegistration.setRegistrationId(registrationByActivityAndUser.getRegistrationId());
             activityRegistration.setStatus(1);  // 1表示预约成功
             activityRegistration.setRegisterTime(LocalDateTime.now());
@@ -112,6 +112,7 @@ public class ActivityRegistrationServiceImpl implements ActivityRegistrationServ
 
     /**
      * 填充用户名
+     *
      * @param allActivityRegistrations
      */
     private void fillUserName(List<ActivityRegistration> allActivityRegistrations) {
@@ -124,18 +125,24 @@ public class ActivityRegistrationServiceImpl implements ActivityRegistrationServ
 
     /**
      * 填充活动名
+     *
      * @param allActivityRegistrations
      */
     private void fillActivityName(List<ActivityRegistration> allActivityRegistrations) {
         for (ActivityRegistration activityRegistration : allActivityRegistrations) {
             Long activityId = activityRegistration.getActivityId();
             String activityName = activityService.getActivityById(activityId).getActivityName();
-            activityRegistration.setActivityName(activityName);
+            if (activityName == null || activityName.equals("")) {
+                activityRegistration.setActivityName("该活动已被删除");
+            } else {
+                activityRegistration.setActivityName(activityName);
+            }
         }
     }
 
     /**
      * 验证预约活动
+     *
      * @param activityId
      * @param userId
      */

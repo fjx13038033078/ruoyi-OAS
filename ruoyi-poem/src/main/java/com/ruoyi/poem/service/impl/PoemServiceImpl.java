@@ -109,6 +109,10 @@ public class PoemServiceImpl implements PoemService {
     @Override
     @Transactional
     public boolean updatePoem(Poem poem) {
+        Long userId = SecurityUtils.getUserId();
+        if (poem.getUserId() != userId && userId != 1) {
+            throw new RuntimeException("用户仅能修改自己发布的古诗词");
+        }
         int rows = poemMapper.updatePoem(poem);
         return rows > 0;
     }
@@ -122,6 +126,11 @@ public class PoemServiceImpl implements PoemService {
     @Override
     @Transactional
     public boolean deletePoem(Long poemId) {
+        Poem poem = poemMapper.getPoemById(poemId);
+        Long userId = SecurityUtils.getUserId();
+        if (poem.getUserId() != userId && userId != 1) {
+            throw new RuntimeException("用户仅能删除自己发布的古诗词");
+        }
         int rows = poemMapper.deletePoem(poemId);
         return rows > 0;
     }

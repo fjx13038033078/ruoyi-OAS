@@ -36,7 +36,7 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public List<Review> listReviewsByVenueId(Long venueId) {
         List<Review> reviews = reviewMapper.listReviewsByVenueId(venueId);
-        for (Review review : reviews){
+        for (Review review : reviews) {
             Long userId = review.getUserId();
             String nickName = sysUserService.selectUserById(userId).getNickName();
             review.setUserName(nickName);
@@ -83,7 +83,7 @@ public class ReviewServiceImpl implements ReviewService {
         Long userId = SecurityUtils.getUserId(); // 获取当前登录用户的ID
         // 根据评价ID查询评价信息
         Review review = reviewMapper.getReviewById(reviewId);
-        if (review != null && userId.equals(review.getUserId())) { // 检查当前用户是否是评价的作者
+        if (userId != 1 || userId != review.getUserId()) { // 检查当前用户是否是评价的作者
             int rows = reviewMapper.deleteReview(reviewId); // 执行删除操作
             return rows > 0;
         } else {

@@ -6,6 +6,7 @@ import com.ruoyi.poem.mapper.FeedbackMapper;
 import com.ruoyi.poem.service.FeedbackService;
 import com.ruoyi.system.service.ISysUserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -15,6 +16,7 @@ import java.util.List;
  * @Author 范佳兴
  * @date 2024/12/31 16:52
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class FeedbackServiceImpl implements FeedbackService {
@@ -69,8 +71,15 @@ public class FeedbackServiceImpl implements FeedbackService {
      */
     @Override
     public boolean deleteFeedback(Long feedbackId) {
-        int rows = feedbackMapper.deleteFeedback(feedbackId);
-        return rows > 0;
+        Long userId = SecurityUtils.getUserId();
+        log.info("用户ID:{}", userId);
+        log.info("反馈用户ID:{}", feedbackMapper.getFeedbackById(feedbackId).getUserId());
+        if ((userId != 1) && (userId != feedbackMapper.getFeedbackById(feedbackId).getUserId())) {
+            throw new RuntimeException("用户仅能删除自己发布的反馈");
+        } else {
+            int rows = feedbackMapper.deleteFeedback(feedbackId);
+            return rows > 0;
+        }
     }
 
     /**
