@@ -25,6 +25,22 @@
         SELECT * FROM ape_poem WHERE poem_id = #{poemId}
     </select>
 
+    <!-- 查询发布诗词数量前五的用户ID -->
+    <select id="getTopUsersByPoemCount" resultType="Long">
+        SELECT user_id
+        FROM ape_poem
+        where status = 1
+        GROUP BY user_id
+        ORDER BY COUNT(*) DESC
+            LIMIT 5
+    </select>
+
+    <!-- 根据用户ID查询用户发布的古诗词 -->
+    <select id="getPoemByUserId" parameterType="Long" resultMap="PoemResult">
+        SELECT * FROM ape_poem WHERE user_id = #{userId}
+    </select>
+
+
     <!-- 添加古诗词 -->
     <insert id="addPoem" parameterType="com.ruoyi.poem.domain.Poem">
         INSERT INTO ape_poem (user_id, poem_title, poem_author, poem_content, status, poem_background)

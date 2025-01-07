@@ -23,6 +23,15 @@ public interface ActivityRegistrationService {
     ActivityRegistration getActivityRegistrationById(Long registrationId);
 
     /**
+     * 判断用户是否已报名该活动
+     *
+     * @param activityId 活动ID
+     * @param userId     用户ID
+     * @return 已报名返回 true，否则返回 false
+     */
+    boolean isAlreadyRegistered(Long activityId, Long userId);
+
+    /**
      * 添加活动报名信息
      * @param activityRegistration 待添加的活动报名信息
      * @return 添加成功返回 true，否则返回 false

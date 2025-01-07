@@ -2,6 +2,7 @@ package com.ruoyi.poem.mapper;
 
 import com.ruoyi.poem.domain.ActivityRegistration;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -26,6 +27,11 @@ public interface ActivityRegistrationMapper {
      * @return 活动报名信息
      */
     ActivityRegistration getActivityRegistrationById(Long registrationId);
+
+    int checkUserRegistration(@Param("activityId") Long activityId, @Param("userId") Long userId);
+
+    ActivityRegistration getRegistrationByActivityAndUser(@Param("activityId") Long activityId,
+                                                          @Param("userId") Long userId);
 
     /**
      * 添加活动报名信息

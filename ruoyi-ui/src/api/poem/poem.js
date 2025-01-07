@@ -18,6 +18,14 @@ export function getPoemById(poemId) {
   })
 }
 
+// 获取发布诗词最多的前5名用户
+export function getTopUsersByPoemCount() {
+  return request({
+    url: '/poem/poem/topUsers',
+    method: 'get'
+  })
+}
+
 // 添加诗词
 export function addPoem(data) {
   return request({

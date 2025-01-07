@@ -10,7 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.ruoyi.common.utils.PageUtils.startPage;
@@ -62,6 +64,23 @@ public class PoemServiceImpl implements PoemService {
     @Override
     public Poem getPoemById(Long poemId) {
         return poemMapper.getPoemById(poemId);
+    }
+
+    /**
+     * 获取点赞数最多的用户
+     *
+     * @return 用户ID列表
+     */
+    @Override
+    public Map<String, Integer> getTopUsersByPoemCount() {
+        HashMap<String, Integer> map = new HashMap<>();
+        List<Long> topUsers = poemMapper.getTopUsersByPoemCount();
+        for (Long userId : topUsers) {
+            String userName = iSysUserService.selectUserById(userId).getNickName();
+            int count = poemMapper.getPoemByUserId(userId).size();
+            map.put(userName, count);
+        }
+        return map;
     }
 
     /**

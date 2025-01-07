@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author 范佳兴
@@ -38,6 +39,15 @@ public class PoemController extends BaseController {
     @GetMapping("/detail")
     public AjaxResult getPoemById(@RequestParam Long poemId) {
         return success(poemService.getPoemById(poemId));
+    }
+
+    /**
+     * 获取用户提交诗词最多的前5名用户
+     * @return 用户列表
+     */
+    @GetMapping("/topUsers")
+    public AjaxResult getTopUsersByPoemCount(){
+        return success(poemService.getTopUsersByPoemCount());
     }
 
     /**

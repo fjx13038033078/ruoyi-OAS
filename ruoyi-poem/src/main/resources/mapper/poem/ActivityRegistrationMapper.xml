@@ -23,6 +23,14 @@
         SELECT * FROM ape_activity_registration WHERE registration_id = #{registrationId}
     </select>
 
+    <!-- 查询用户某活动的预约记录 -->
+    <select id="getRegistrationByActivityAndUser" resultMap="ActivityRegistrationResult">
+        SELECT *
+        FROM ape_activity_registration
+        WHERE activity_id = #{activityId}
+          AND user_id = #{userId}
+    </select>
+
     <!-- 根据活动ID查询活动报名信息 -->
     <select id="getActivityRegistrationsByActivityId" parameterType="Long" resultMap="ActivityRegistrationResult">
         SELECT * FROM ape_activity_registration WHERE activity_id = #{activityId}
@@ -31,6 +39,11 @@
     <!-- 根据用户ID查询活动报名信息 -->
     <select id="getActivityRegistrationsByUserId" parameterType="Long" resultMap="ActivityRegistrationResult">
         SELECT * FROM ape_activity_registration WHERE user_id = #{userId} ORDER BY registration_id DESC
+    </select>
+
+    <select id="checkUserRegistration" resultType="int">
+        SELECT COUNT(*) FROM ape_activity_registration
+        WHERE activity_id = #{activityId} AND user_id = #{userId}
     </select>
 
     <!-- 添加活动报名信息 -->

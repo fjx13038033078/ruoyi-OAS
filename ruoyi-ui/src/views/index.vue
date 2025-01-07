@@ -55,7 +55,7 @@
         <el-col :span="12">
           <el-card style="margin-right: 20px; height: 420px;">
             <h3 slot="header">古诗词发布排行榜</h3>
-              <div id="venueCourtChart" style="height: 300px;"></div> <!-- echarts 柱状图 -->
+              <div id="poemCourtChart" style="height: 300px;"></div> <!-- echarts 柱状图 -->
           </el-card>
         </el-col>
       </el-row>
@@ -72,6 +72,7 @@ import {listNotice, getNotice} from "@/api/system/notice";
 import request from '@/utils/request';
 import {getVenueCourtCountMap} from "@/api/featherball/court";
 import * as echarts from 'echarts'
+import {getTopUsersByPoemCount} from "@/api/poem/poem";
 
 
 export default {
@@ -128,7 +129,7 @@ export default {
     this.getList();
   },
   mounted() {
-    this.initVenueCourtChart(); // 初始化 echarts 柱状图
+    this.initPoemCourtChart(); // 初始化 echarts 柱状图
     this.initEchartsText(); // 初始化 ECharts 动画文本
   },
   methods: {
@@ -151,37 +152,36 @@ export default {
       });
     },
     // 获取场馆场地数量映射的数据并更新到图表中
-    fetchVenueCourtMapData() {
-      getVenueCourtCountMap().then(response => {
-        this.venueCourtMapData = response.data;
-        this.updateVenueCourtChart(); // 获取到数据后更新图表
-      });
+    fetchPoemCourtMapData() {
+      getTopUsersByPoemCount().then(response => {
+        this.topUserMapData = response.data;
+        this.updateTopUserChart();
+      })
     },
     // 初始化 echarts 柱状图
-    initVenueCourtChart() {
-      this.venueCourtChart = echarts.init(document.getElementById("venueCourtChart"));
-      this.fetchVenueCourtMapData(); // 获取数据并更新图表
+    initPoemCourtChart() {
+      this.poemCourtChart = echarts.init(document.getElementById("poemCourtChart"));
+      this.fetchPoemCourtMapData(); // 获取数据并更新图表
     },
-    // 更新 echarts 柱状图
-    updateVenueCourtChart() {
+    updateTopUserChart(){
       // 使用获取到的数据更新图表
-      const venueNames = Object.keys(this.venueCourtMapData);
-      const courtCounts = Object.values(this.venueCourtMapData);
+      const userNames = Object.keys(this.topUserMapData);
+      const countPoems = Object.values(this.topUserMapData);
       const option = {
         // echarts 配置项
         xAxis: {
           type: "category",
-          data: venueNames
+          data: userNames
         },
         yAxis: {
           type: "value"
         },
         series: [{
-          data: courtCounts,
+          data: countPoems,
           type: "bar"
         }]
       };
-      this.venueCourtChart.setOption(option);
+      this.poemCourtChart.setOption(option);
     },
     // 初始化 ECharts 动画文本
     initEchartsText() {

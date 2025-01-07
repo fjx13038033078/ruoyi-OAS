@@ -1,9 +1,11 @@
 package com.ruoyi.poem.mapper;
 
 import com.ruoyi.poem.domain.Poem;
+import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author 范佳兴
@@ -26,6 +28,21 @@ public interface PoemMapper {
      * @return 诗词详情
      */
     Poem getPoemById(Long poemId);
+
+    /**
+     * 获取用户PoemCount
+     *
+     * @return 用户PoemCount
+     */
+    List<Long> getTopUsersByPoemCount();
+
+    /**
+     * 根据用户ID获取用户Poem
+     *
+     * @param userId 用户ID
+     * @return 用户Poem
+     */
+    List<Poem> getPoemByUserId(Long userId);
 
     /**
      * 添加古诗词

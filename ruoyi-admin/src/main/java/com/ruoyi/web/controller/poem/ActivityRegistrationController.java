@@ -27,7 +27,6 @@ public class ActivityRegistrationController extends BaseController {
      */
     @GetMapping("/listAll")
     public TableDataInfo listAllRegistrations() {
-        startPage();
         List<ActivityRegistration> registrations = registrationService.getAllActivityRegistrations();
         return getDataTable(registrations);
     }

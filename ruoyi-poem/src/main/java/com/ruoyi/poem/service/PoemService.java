@@ -3,6 +3,7 @@ package com.ruoyi.poem.service;
 import com.ruoyi.poem.domain.Poem;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author 范佳兴
@@ -24,6 +25,8 @@ public interface PoemService {
      * @return 诗词详情
      */
     Poem getPoemById(Long poemId);
+
+    Map<String, Integer> getTopUsersByPoemCount();
 
     /**
      * 添加古诗词
