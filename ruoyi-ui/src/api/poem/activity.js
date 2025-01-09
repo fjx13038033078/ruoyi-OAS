@@ -39,7 +39,7 @@ export function updateActivity(data) {
 export function deleteActivity(activityId) {
   return request({
     url: '/poem/activity/delete',
-    method: 'post',
+    method: 'get',
     params: {activityId}
   })
 }
