@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.property.mapper.RepairMapper">
+
+    <!-- 定义结果映射 -->
+    <resultMap id="RepairResult" type="com.ruoyi.property.domain.Repair">
+        <id property="repairId" column="repair_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="repairType" column="repair_type"/>
+        <result property="description" column="description"/>
+        <result property="status" column="status"/>
+        <result property="createdTime" column="created_time"/>
+        <result property="resolvedTime" column="resolved_time"/>
+    </resultMap>
+
+    <!-- 查询所有报修记录 -->
+    <select id="getAllRepairs" resultMap="RepairResult">
+        SELECT repair_id, user_id, repair_type, description, status, created_time, resolved_time
+        FROM cps_repair
+    </select>
+
+    <!-- 根据报修ID查询报修记录 -->
+    <select id="getRepairById" parameterType="Long" resultMap="RepairResult">
+        SELECT repair_id, user_id, repair_type, description, status, created_time, resolved_time
+        FROM cps_repair
+        WHERE repair_id = #{repairId}
+    </select>
+
+    <!-- 根据用户ID查询用户的报修记录 -->
+    <select id="getRepairsByUserId" parameterType="Long" resultMap="RepairResult">
+        SELECT repair_id, user_id, repair_type, description, status, created_time, resolved_time
+        FROM cps_repair
+        WHERE user_id = #{userId}
+    </select>
+
+    <!-- 添加报修记录 -->
+    <insert id="addRepair" parameterType="com.ruoyi.property.domain.Repair">
+        INSERT INTO cps_repair (user_id, repair_type, description, status, created_time, resolved_time)
+        VALUES (#{userId}, #{repairType}, #{description}, #{status}, #{createdTime}, #{resolvedTime})
+    </insert>
+
+    <!-- 更新报修记录 -->
+    <update id="updateRepair" parameterType="com.ruoyi.property.domain.Repair">
+        UPDATE cps_repair
+        SET user_id = #{userId},
+            repair_type = #{repairType},
+            description = #{description},
+            status = #{status},
+            created_time = #{createdTime},
+            resolved_time = #{resolvedTime}
+        WHERE repair_id = #{repairId}
+    </update>
+
+    <!-- 删除报修记录 -->
+    <delete id="deleteRepair" parameterType="Long">
+        DELETE FROM cps_repair WHERE repair_id = #{repairId}
+    </delete>
+
+</mapper>

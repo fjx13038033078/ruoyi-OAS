@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.property.mapper.FeedbackMapper">
+
+    <!-- 定义结果映射 -->
+    <resultMap id="FeedbackResult" type="com.ruoyi.property.domain.Feedback">
+        <id property="feedbackId" column="feedback_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="content" column="content"/>
+        <result property="status" column="status"/>
+        <result property="image" column="image"/>
+        <result property="replyContent" column="reply_content"/>
+        <result property="replyTime" column="reply_time"/>
+    </resultMap>
+
+    <!-- 查询所有反馈记录 -->
+    <select id="getAllFeedbacks" resultMap="FeedbackResult">
+        SELECT * FROM cps_feedback
+    </select>
+
+    <!-- 根据反馈ID查询反馈记录 -->
+    <select id="getFeedbackById" parameterType="Long" resultMap="FeedbackResult">
+        SELECT * FROM cps_feedback WHERE feedback_id = #{feedbackId}
+    </select>
+
+    <!-- 根据用户ID查询反馈记录 -->
+    <select id="getFeedbacksByUserId" parameterType="String" resultMap="FeedbackResult">
+        SELECT * FROM cps_feedback WHERE user_id = #{userId}
+    </select>
+
+    <!-- 添加反馈记录 -->
+    <insert id="addFeedback" parameterType="com.ruoyi.property.domain.Feedback">
+        INSERT INTO cps_feedback (user_id, content, status, image, reply_content, reply_time)
+        VALUES (#{userId}, #{content}, #{status}, #{image}, #{replyContent}, #{replyTime})
+    </insert>
+
+    <!-- 更新反馈记录 -->
+    <update id="updateFeedback" parameterType="com.ruoyi.property.domain.Feedback">
+        UPDATE cps_feedback
+        SET user_id = #{userId},
+            content = #{content},
+            status = #{status},
+            image = #{image},
+            reply_content = #{replyContent},
+            reply_time = #{replyTime}
+        WHERE feedback_id = #{feedbackId}
+    </update>
+
+    <!-- 删除反馈记录 -->
+    <delete id="deleteFeedback" parameterType="Long">
+        DELETE FROM cps_feedback WHERE feedback_id = #{feedbackId}
+    </delete>
+
+</mapper>
