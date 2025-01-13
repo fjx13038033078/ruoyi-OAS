@@ -64,12 +64,7 @@
             <groupId>com.ruoyi</groupId>
             <artifactId>ruoyi-featherball</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.ruoyi</groupId>
-            <artifactId>ruoyi-poem</artifactId>
-            <version>3.8.7</version>
-            <scope>compile</scope>
-        </dependency>
+
         <dependency>
             <groupId>com.ruoyi</groupId>
             <artifactId>ruoyi-property</artifactId>

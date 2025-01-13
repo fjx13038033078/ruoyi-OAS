@@ -1,10 +1,14 @@
 <template>
   <div>
-    <div ref="echartsText" style="height: 100px; display: flex; justify-content: center; align-items: center;">
-      <!-- 这里 ECharts 动画文本会被渲染 -->
+    <div id="curtain" style="width: 100%; height: 100px">
+      <el-row justify="center" align="middle" style="height: 100px" class="background-title">
+        <el-col :span="24">
+          <h1 class="centered-title" style="margin-top: -8px" data-text="小区物业管理系统">{{ titleText }}</h1>
+        </el-col>
+      </el-row>
     </div>
     <div>
-      <el-carousel :interval="4000" type="card" height="300px">
+      <el-carousel :interval="4000" type="card" height="300px" style="margin-top: 5px">
         <el-carousel-item>
           <a href="https://tv.cctv.com/yxg/tbjm/scdh/index.shtml" target="_blank">
             <img src="../assets/images/01.jpg" alt="Image 1" style="width: 100%;">
@@ -69,10 +73,7 @@
 </template>
 <script>
 import {listNotice, getNotice} from "@/api/system/notice";
-import request from '@/utils/request';
-import {getVenueCourtCountMap} from "@/api/featherball/court";
-import * as echarts from 'echarts'
-import {getTopUsersByPoemCount} from "@/api/poem/poem";
+import * as echarts from 'echarts';
 
 
 export default {
@@ -80,6 +81,7 @@ export default {
   dicts: ['sys_notice_status', 'sys_notice_type'],
   data() {
     return {
+      titleText : '小区物业管理系统',
       // 遮罩层
       loading: true,
       // 选中数组
@@ -246,6 +248,56 @@ export default {
   height: auto;
   display: block;
   margin: 0 auto;
+}
+
+#curtain {
+  position: relative;
+}
+
+.background-title {
+  background-color: #4158d0;
+  background-image: linear-gradient(43deg, #4158d0 0%, #c850c0 46%, #ffcc70 100%);
+}
+
+.centered-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 60px;
+  white-space: nowrap;
+  font-weight: bold;
+  font-family: 'Microsoft YaHei';
+}
+
+.centered-title::before {
+  content: attr(data-text);
+  position: absolute;
+  transform: rotateX(180deg);
+  transform-origin: bottom;
+  line-height: 52px;
+  background: linear-gradient(0deg, #000 0, transparent 80%);
+  -webkit-background-clip: text;
+  color: transparent;
+  opacity: 0.5;
+}
+
+@keyframes slideInLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
 
 </style>

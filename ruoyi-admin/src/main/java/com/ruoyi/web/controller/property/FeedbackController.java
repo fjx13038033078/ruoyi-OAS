@@ -15,7 +15,7 @@ import java.util.List;
  * @date 2025/1/13 9:44
  */
 @RequiredArgsConstructor
-@RestController
+@RestController("feedbackControllerProperty")
 @RequestMapping("/property/feedback")
 public class FeedbackController extends BaseController {
     private final FeedbackService feedbackService;
