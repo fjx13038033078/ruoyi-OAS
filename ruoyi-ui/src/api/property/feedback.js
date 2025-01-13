@@ -35,15 +35,6 @@ export function addFeedback(data) {
   })
 }
 
-// 修改反馈记录
-export function updateFeedback(data) {
-  return request({
-    url: '/property/feedback/update',
-    method: 'post',
-    data: data
-  })
-}
-
 // 删除反馈记录
 export function deleteFeedback(feedbackId) {
   return request({

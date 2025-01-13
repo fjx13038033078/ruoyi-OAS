@@ -75,19 +75,6 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     /**
-     * 更新反馈记录
-     *
-     * @param feedback 反馈对象
-     * @return 是否更新成功
-     */
-    @Override
-    public boolean updateFeedback(Feedback feedback) {
-//        feedback.setUpdateTime(LocalDateTime.now());
-        int rows = feedbackMapper.updateFeedback(feedback);
-        return rows > 0;
-    }
-
-    /**
      * 删除反馈记录
      *
      * @param feedbackId 反馈ID

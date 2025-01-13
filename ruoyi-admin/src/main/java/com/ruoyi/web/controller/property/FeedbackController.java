@@ -62,16 +62,6 @@ public class FeedbackController extends BaseController {
     }
 
     /**
-     * 更新反馈记录
-     * @param feedback 反馈对象
-     * @return 操作结果
-     */
-    @PostMapping("/update")
-    public AjaxResult updateFeedback(@RequestBody Feedback feedback) {
-        return toAjax(feedbackService.updateFeedback(feedback));
-    }
-
-    /**
      * 删除反馈记录
      * @param feedbackId 反馈ID
      * @return 操作结果

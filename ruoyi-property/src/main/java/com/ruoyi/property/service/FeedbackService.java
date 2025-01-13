@@ -41,14 +41,6 @@ public interface FeedbackService {
     boolean addFeedback(Feedback feedback);
 
     /**
-     * 更新反馈记录
-     *
-     * @param feedback 反馈对象
-     * @return 是否更新成功
-     */
-    boolean updateFeedback(Feedback feedback);
-
-    /**
      * 删除反馈记录
      *
      * @param feedbackId 反馈ID
