@@ -88,6 +88,8 @@ public class RepairServiceImpl implements RepairService {
      */
     @Override
     public boolean addRepair(Repair repair) {
+        Long userId = SecurityUtils.getUserId();
+        repair.setUserId(userId);
         repair.setCreatedTime(LocalDateTime.now());
         repair.setStatus(0); // 初始化状态为待处理
         int rows = repairMapper.addRepair(repair);
