@@ -23,6 +23,7 @@ import java.time.LocalDateTime;
 @ToString
 @RequiredArgsConstructor
 public class Payment implements Serializable {
+
     /**
      * 缴费记录ID，主键，自增
      */
@@ -32,7 +33,7 @@ public class Payment implements Serializable {
     /**
      * 用户ID，外键关联用户表
      */
-    private String userId;
+    private Long userId;
 
     /**
      * 用户名

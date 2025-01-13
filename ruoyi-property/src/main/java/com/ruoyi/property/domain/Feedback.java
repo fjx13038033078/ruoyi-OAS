@@ -31,7 +31,7 @@ public class Feedback implements Serializable {
     /**
      * 用户ID，外键关联用户表
      */
-    private String userId;
+    private Long userId;
 
     /**
      * 用户名
