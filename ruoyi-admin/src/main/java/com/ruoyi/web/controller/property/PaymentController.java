@@ -46,7 +46,7 @@ public class PaymentController extends BaseController {
      * @return 用户的缴费记录列表
      */
     @GetMapping("/listByUserId")
-    public AjaxResult getPaymentsByUserId(@RequestParam String userId) {
+    public AjaxResult getPaymentsByUserId(@RequestParam Long userId) {
         List<Payment> payments = paymentService.getPaymentsByUserId(userId);
         return success(payments);
     }

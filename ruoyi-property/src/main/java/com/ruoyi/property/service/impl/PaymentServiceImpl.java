@@ -65,7 +65,7 @@ public class PaymentServiceImpl implements PaymentService {
      * @return 用户的缴费记录列表
      */
     @Override
-    public List<Payment> getPaymentsByUserId(String userId) {
+    public List<Payment> getPaymentsByUserId(Long userId) {
         return paymentMapper.getPaymentsByUserId(userId);
     }
 
