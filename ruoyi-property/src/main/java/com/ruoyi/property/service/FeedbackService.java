@@ -30,7 +30,7 @@ public interface FeedbackService {
      * @param userId 用户ID
      * @return 用户的反馈记录列表
      */
-    List<Feedback> getFeedbacksByUserId(String userId);
+    List<Feedback> getFeedbacksByUserId(Long userId);
 
     /**
      * 添加反馈记录

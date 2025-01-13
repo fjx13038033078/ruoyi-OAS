@@ -4,12 +4,12 @@ import com.ruoyi.common.utils.SecurityUtils;
 import com.ruoyi.property.domain.Payment;
 import com.ruoyi.property.mapper.PaymentMapper;
 import com.ruoyi.property.service.PaymentService;
+import com.ruoyi.system.service.ISysRoleService;
 import com.ruoyi.system.service.ISysUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -20,8 +20,12 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class PaymentServiceImpl implements PaymentService {
+
     private final PaymentMapper paymentMapper;
+
     private final ISysUserService iSysUserService;
+
+    private final ISysRoleService iSysRoleService;
 
     /**
      * 查询所有缴费记录
@@ -30,9 +34,17 @@ public class PaymentServiceImpl implements PaymentService {
      */
     @Override
     public List<Payment> getAllPayments() {
-        List<Payment> paymentList = paymentMapper.getAllPayments();
-        fillUserName(paymentList);
-        return paymentList;
+        Long userId = SecurityUtils.getUserId();
+        String role = iSysRoleService.selectStringRoleByUserId(userId);
+        if (role.equals("admin")) {
+            List<Payment> paymentList = paymentMapper.getAllPayments();
+            fillUserName(paymentList);
+            return paymentList;
+        } else {
+            List<Payment> paymentsByUserId = paymentMapper.getPaymentsByUserId(userId);
+            fillUserName(paymentsByUserId);
+            return paymentsByUserId;
+        }
     }
 
     /**

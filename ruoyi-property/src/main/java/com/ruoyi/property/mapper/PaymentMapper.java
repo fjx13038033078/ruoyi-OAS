@@ -32,7 +32,7 @@ public interface PaymentMapper {
      * @param userId 用户ID
      * @return 用户的缴费记录
      */
-    List<Payment> getPaymentsByUserId(String userId);
+    List<Payment> getPaymentsByUserId(Long userId);
 
     /**
      * 添加缴费记录

@@ -26,7 +26,7 @@
     </select>
 
     <!-- 根据用户ID查询反馈记录 -->
-    <select id="getFeedbacksByUserId" parameterType="String" resultMap="FeedbackResult">
+    <select id="getFeedbacksByUserId" parameterType="Long" resultMap="FeedbackResult">
         SELECT * FROM cps_feedback WHERE user_id = #{userId}
     </select>
 

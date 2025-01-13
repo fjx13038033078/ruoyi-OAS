@@ -26,7 +26,7 @@
     </select>
 
     <!-- 根据用户ID查询缴费记录 -->
-    <select id="getPaymentsByUserId" parameterType="String" resultMap="PaymentResult">
+    <select id="getPaymentsByUserId" parameterType="Long" resultMap="PaymentResult">
         SELECT * FROM cps_payment WHERE user_id = #{userId}
     </select>
 

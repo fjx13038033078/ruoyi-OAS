@@ -46,7 +46,7 @@ public class FeedbackController extends BaseController {
      * @return 用户的反馈记录列表
      */
     @GetMapping("/listByUserId")
-    public AjaxResult getFeedbacksByUserId(@RequestParam String userId) {
+    public AjaxResult getFeedbacksByUserId(@RequestParam Long userId) {
         List<Feedback> feedbacks = feedbackService.getFeedbacksByUserId(userId);
         return success(feedbacks);
     }

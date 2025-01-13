@@ -1,8 +1,10 @@
 package com.ruoyi.property.service.impl;
 
+import com.ruoyi.common.utils.SecurityUtils;
 import com.ruoyi.property.domain.Repair;
 import com.ruoyi.property.mapper.RepairMapper;
 import com.ruoyi.property.service.RepairService;
+import com.ruoyi.system.service.ISysRoleService;
 import com.ruoyi.system.service.ISysUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import static com.ruoyi.common.utils.PageUtils.startPage;
 
 /**
  * @Author 范佳兴
@@ -24,6 +28,8 @@ public class RepairServiceImpl implements RepairService {
 
     private final ISysUserService sysUserService;
 
+    private final ISysRoleService iSysRoleService;
+
     /**
      * 查询所有报修记录
      *
@@ -31,9 +37,19 @@ public class RepairServiceImpl implements RepairService {
      */
     @Override
     public List<Repair> getAllRepairs() {
-        List<Repair> repairs = repairMapper.getAllRepairs();
-        fillUserNames(repairs);
-        return repairs;
+        Long userId = SecurityUtils.getUserId();
+        String role = iSysRoleService.selectStringRoleByUserId(userId);
+        if (role.equals("admin")){
+            startPage();
+            List<Repair> repairs = repairMapper.getAllRepairs();
+            fillUserNames(repairs);
+            return repairs;
+        } else {
+            startPage();
+            List<Repair> repairsByUserId = repairMapper.getRepairsByUserId(userId);
+            fillUserNames(repairsByUserId);
+            return repairsByUserId;
+        }
     }
 
     /**

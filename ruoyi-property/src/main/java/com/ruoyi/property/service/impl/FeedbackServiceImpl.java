@@ -55,7 +55,7 @@ public class FeedbackServiceImpl implements FeedbackService {
      * @return 用户的反馈记录列表
      */
     @Override
-    public List<Feedback> getFeedbacksByUserId(String userId) {
+    public List<Feedback> getFeedbacksByUserId(Long userId) {
         return feedbackMapper.getFeedbacksByUserId(userId);
     }
 
