@@ -81,6 +81,18 @@ public class SysUserController extends BaseController
      * 获取用户列表
      */
     @PreAuthorize("@ss.hasPermi('system:user:list')")
+    @GetMapping("/commonList")
+    public TableDataInfo commonList(SysUser user)
+    {
+        startPage();
+        List<SysUser> list = userService.selectCommonList(user);
+        return getDataTable(list);
+    }
+
+    /**
+     * 获取用户列表
+     */
+    @PreAuthorize("@ss.hasPermi('system:user:list')")
     @GetMapping("/vipList")
     public TableDataInfo vipList(SysUser user)
     {

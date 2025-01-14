@@ -20,6 +20,8 @@ public interface ISysUserService
 
     public List<SysUser> selectTrainerList(SysUser user);
 
+    public List<SysUser> selectCommonList(SysUser user);
+
     public List<SysUser> selectVipList(SysUser user);
 
     /**

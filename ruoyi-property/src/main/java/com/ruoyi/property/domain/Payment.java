@@ -67,7 +67,7 @@ public class Payment implements Serializable {
     /**
      * 附件
      */
-    private String file;
+    private String fileName;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

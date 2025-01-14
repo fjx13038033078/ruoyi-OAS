@@ -20,6 +20,15 @@ export function listTrainer(query) {
 }
 
 // 查询用户列表
+export function listCommon(query) {
+  return request({
+    url: '/system/user/commonList',
+    method: 'get',
+    params: query
+  })
+}
+
+// 查询用户列表
 export function listVip(query) {
   return request({
     url: '/system/user/vipList',

@@ -28,6 +28,9 @@ public interface SysUserMapper
      */
     public List<SysUser> selectTrainerList(SysUser sysUser);
 
+
+    public List<SysUser> selectCommonList(SysUser sysUser);
+
     /**
      * 根据条件分页查询用户列表
      *

@@ -20,15 +20,31 @@
         </el-table-column>
         <el-table-column label="状态" prop="status" align="center">
           <template #default="scope">
-            <el-tag :type="scope.row.status === 1 ? 'success' : 'warning'">
-              {{ scope.row.status === 0 ? '待处理' : '已处理' }}
+            <el-tag
+              :type="scope.row.status === 0 ? 'warning' : scope.row.status === 1 ? 'info' : 'success'"
+            >
+              {{
+                scope.row.status === 0
+                  ? '待处理'
+                  : scope.row.status === 1
+                    ? '处理中'
+                    : '已完成'
+              }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="操作" align="center" width="250px">
+        <el-table-column label="操作" align="center" width="350px">
           <template #default="{ row }">
+            <el-button type="success" size="mini" @click="handleUpdateStatus(row)">更改状态</el-button>
             <el-button type="info" size="mini" @click="handleView(row)">查看</el-button>
-            <el-button type="primary" size="mini" @click="handleEdit(row)">编辑</el-button>
+            <el-button
+              v-if="row.status === 0"
+              type="primary"
+              size="mini"
+              @click="handleEdit(row)"
+            >
+              编辑
+            </el-button>
             <el-button type="danger" size="mini" @click="handleDelete(row)">删除</el-button>
           </template>
         </el-table-column>
@@ -167,6 +183,33 @@ export default {
           this.fetchRepairs();
         });
       });
+    },
+    handleUpdateStatus(row){
+      // 检查当前状态并执行相应逻辑
+      if (row.status === 2) {
+        this.$message.warning("该维修已维修完成，无法更新状态");
+        return;
+      }
+      // 确认提示
+      this.$confirm(
+        `确定将报修状态从 ${row.status === 0 ? "待处理" : row.status === 1 ? "已处理" : ""} 更新为 ${
+          row.status === 0 ? "已处理" : "维修完成"
+        } 吗？`,
+        "提示",
+        {
+          type: "warning",
+        }
+      ).then(() => {
+        // 更新状态
+        const updatedRow = {
+          ...row,
+          status: row.status + 1, // 状态值递增
+        };
+        updateRepair(updatedRow).then(() => {
+          this.$message.success("状态更新成功");
+          this.fetchRepairs(); // 刷新列表
+        });
+      })
     },
     // 提交表单
     handleSubmit() {
