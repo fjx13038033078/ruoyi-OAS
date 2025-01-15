@@ -78,9 +78,6 @@ public class PaymentServiceImpl implements PaymentService {
      */
     @Override
     public boolean addPayment(Payment payment) {
-        Long userId = SecurityUtils.getUserId();
-        payment.setUserId(userId);
-
         payment.setStatus(0); // 初始化状态为未支付
         int rows = paymentMapper.addPayment(payment);
         return rows > 0;

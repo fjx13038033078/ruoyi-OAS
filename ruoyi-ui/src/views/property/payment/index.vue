@@ -4,7 +4,7 @@
       <!-- 新增缴费记录按钮 -->
       <el-row :gutter="20" class="mb-20" style="margin-bottom: 20px;">
         <el-col>
-          <el-button type="primary" @click="handleAddPayment" v-hasPermi="['property:payment:add']">新增缴费</el-button>
+          <el-button type="primary" @click="handleAddPayment" v-hasPermi="['property:payment:add']">新增缴费单</el-button>
         </el-col>
       </el-row>
 
@@ -219,7 +219,7 @@ export default {
     handleUpdateStatus(row) {
       // 使用 ElMessageBox 弹出确认框
       this.$confirm(
-        `您需要缴纳 ${row.amount} 费用，总计 ${row.amount} 元，是否确认缴费？`,
+        `您需要缴纳 ${row.type}，总计 ${row.amount} 元，是否确认缴费？`,
         "提示",
         {
           confirmButtonText: "确定",
