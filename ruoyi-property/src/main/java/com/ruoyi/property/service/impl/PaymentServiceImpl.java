@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -93,8 +94,14 @@ public class PaymentServiceImpl implements PaymentService {
      */
     @Override
     public boolean updatePayment(Payment payment) {
-        int rows = paymentMapper.updatePayment(payment);
-        return rows > 0;
+        if (payment.getStatus() == 1){
+            payment.setPaymentDate(LocalDateTime.now());
+            int rows = paymentMapper.updatePayment(payment);
+            return rows > 0;
+        } else {
+            int rows = paymentMapper.updatePayment(payment);
+            return rows > 0;
+        }
     }
 
     /**

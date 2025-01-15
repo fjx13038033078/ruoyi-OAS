@@ -43,6 +43,11 @@ public class Payment implements Serializable {
     private String userName;
 
     /**
+     * 缴费类型
+     */
+    private String type;
+
+    /**
      * 缴纳金额
      */
     private BigDecimal amount;

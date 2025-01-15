@@ -8,6 +8,7 @@
     <resultMap id="PaymentResult" type="com.ruoyi.property.domain.Payment">
         <id property="paymentId" column="payment_id"/>
         <result property="userId" column="user_id"/>
+        <result property="type" column="type"/>
         <result property="amount" column="amount"/>
         <result property="paymentDate" column="payment_date"/>
         <result property="status" column="status"/>
@@ -32,14 +33,15 @@
 
     <!-- 添加缴费记录 -->
     <insert id="addPayment" parameterType="com.ruoyi.property.domain.Payment">
-        INSERT INTO cps_payment (user_id, amount, payment_date, status, description, file)
-        VALUES (#{userId}, #{amount}, #{paymentDate}, #{status}, #{description}, #{fileName})
+        INSERT INTO cps_payment (user_id, type, amount, payment_date, status, description, file)
+        VALUES (#{userId}, #{type}, #{amount}, #{paymentDate}, #{status}, #{description}, #{fileName})
     </insert>
 
     <!-- 更新缴费记录 -->
     <update id="updatePayment" parameterType="com.ruoyi.property.domain.Payment">
         UPDATE cps_payment
         SET user_id = #{userId},
+            type = #{type},
             amount = #{amount},
             payment_date = #{paymentDate},
             status = #{status},

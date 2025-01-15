@@ -11,7 +11,8 @@
       <!-- 缴费记录列表 -->
       <el-table :data="paymentList" v-loading="loading" style="width: 100%" border>
         <el-table-column label="缴费ID" prop="paymentId" align="center"></el-table-column>
-        <el-table-column label="用户名" prop="userName" align="center"></el-table-column>
+        <el-table-column label="业主姓名" prop="userName" align="center"></el-table-column>
+        <el-table-column label="缴费类型" prop="type" align="center"></el-table-column>
         <el-table-column label="缴纳金额" prop="amount" align="center"></el-table-column>
         <el-table-column label="缴费日期" prop="paymentDate" align="center"></el-table-column>
         <el-table-column label="缴费状态" prop="status" align="center">
@@ -53,8 +54,8 @@
 
       <!-- 新增/编辑缴费记录对话框 -->
       <el-dialog :visible.sync="dialogVisible" :title="dialogTitle" width="30%">
-        <el-form :model="paymentForm" label-width="100px">
-          <el-form-item label="用户ID">
+        <el-form :model="paymentForm" label-width="100px" ref="paymentFormRef" :rules="rules">
+          <el-form-item label="业主姓名" prop="userId">
             <el-select v-model="paymentForm.userId" placeholder="请选用户" :disabled="isReadOnly">
               <el-option
                 v-for="common in commonOptions"
@@ -64,16 +65,18 @@
               ></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="缴纳金额">
-            <el-input-number v-model="paymentForm.amount" placeholder="请输入缴纳金额"></el-input-number>
+          <el-form-item label="缴费类型">
+            <el-select v-model="paymentForm.type" placeholder="请选择缴费类型">
+              <el-option
+                v-for="type in paymentTypes"
+                :key="type.value"
+                :label="type.label"
+                :value="type.value"
+              ></el-option>
+            </el-select>
           </el-form-item>
-          <el-form-item label="缴费日期">
-            <el-date-picker
-              v-model="paymentForm.paymentDate"
-              type="datetime"
-              value-format="yyyy-MM-dd HH:mm:ss"
-              placeholder="选择缴费截止时间">
-            </el-date-picker>
+          <el-form-item label="缴纳金额" prop="amount">
+            <el-input-number v-model="paymentForm.amount" placeholder="请输入缴纳金额"></el-input-number>
           </el-form-item>
           <el-form-item label="详情描述">
             <el-input
@@ -95,11 +98,11 @@
       <!-- 查看缴费详情对话框 -->
       <el-dialog :visible.sync="viewDialogVisible" title="缴费详情" width="30%">
         <el-form :model="viewPaymentForm" label-width="100px">
-          <el-form-item label="缴费ID">
-            <el-input v-model="viewPaymentForm.paymentId" disabled></el-input>
-          </el-form-item>
-          <el-form-item label="用户名">
+          <el-form-item label="业主姓名">
             <el-input v-model="viewPaymentForm.userName" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="缴费类型">
+            <el-input v-model="viewPaymentForm.type" disabled></el-input>
           </el-form-item>
           <el-form-item label="缴纳金额">
             <el-input v-model="viewPaymentForm.amount" disabled></el-input>
@@ -143,19 +146,37 @@ export default {
       commonOptions: [],
       isReadOnly: false,
       paymentForm: {
-        paymentId: null,
         userId: "",
+        type: "",
         amount: null,
-        paymentDate: "",
         description: "",
         fileName: "",
       },
+      paymentTypes: [
+        { value: "物业管理费", label: "物业管理费" },
+        { value: "水费", label: "水费" },
+        { value: "电费", label: "电费" },
+        { value: "燃气费", label: "燃气费" },
+        { value: "停车费", label: "停车费" },
+        { value: "维修基金", label: "维修基金" },
+        { value: "卫生费", label: "卫生费" },
+        { value: "电梯维护费", label: "电梯维护费" },
+        { value: "公共设施维修费", label: "公共设施维修费" },
+        { value: "安保服务费", label: "安保服务费" },
+        { value: "绿化维护费", label: "绿化维护费" },
+        { value: "垃圾处理费", label: "垃圾处理费" },
+      ],
       viewDialogVisible: false,
       viewPaymentForm: {},
       queryParams: {
         pageNum: 1,
         pageSize: 10,
       },
+      rules: {
+        userId: [{required: true, message: '请输入业主姓名', trigger: 'blur'}],
+        amount: [{required: true, message: '请输入缴费金额', trigger: 'blur'}],
+        type: [{ required: true, message: "请选择缴费类型", trigger: "change" }],
+      }
     };
   },
   created() {
@@ -173,7 +194,7 @@ export default {
       });
     },
     fetchCommon() {
-      listCommon(this.queryParams).then(response =>{
+      listCommon(this.queryParams).then(response => {
         this.commonOptions = response.rows.map(common => ({
           userId: common.userId,
           userName: common.nickName
@@ -195,15 +216,28 @@ export default {
     },
     // 更新缴费状态
     handleUpdateStatus(row) {
-      const updatedRow = { ...row, status: 1 };
-      updatePayment(updatedRow).then(() => {
-        this.$message.success("缴费成功");
-        this.fetchPayments();
-      });
+      // 使用 ElMessageBox 弹出确认框
+      this.$confirm(
+        `您需要缴纳 ${row.amount} 费用，总计 ${row.amount} 元，是否确认缴费？`,
+        "提示",
+        {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+        }
+      )
+        .then(() => {
+          // 用户确认后执行缴费逻辑
+          const updatedRow = {...row, status: 1};
+          updatePayment(updatedRow).then(() => {
+            this.$message.success("缴费成功");
+            this.fetchPayments();
+          });
+        })
     },
     // 查看缴费记录
     handleView(row) {
-      this.viewPaymentForm = { ...row };
+      this.viewPaymentForm = {...row};
       this.viewDialogVisible = true;
     },
     // 删除缴费记录
@@ -219,19 +253,23 @@ export default {
     },
     // 提交表单
     handleSubmit() {
-      if (this.dialogButton === "添加") {
-        addPayment(this.paymentForm).then(() => {
-          this.$message.success("新增成功");
-          this.dialogVisible = false;
-          this.fetchPayments();
-        });
-      } else {
-        updatePayment(this.paymentForm).then(() => {
-          this.$message.success("更新成功");
-          this.dialogVisible = false;
-          this.fetchPayments();
-        });
-      }
+      this.$refs.paymentFormRef.validate(valid => {
+        if (valid) {
+          if (this.dialogButton === "添加") {
+            addPayment(this.paymentForm).then(() => {
+              this.$message.success("新增成功");
+              this.dialogVisible = false;
+              this.fetchPayments();
+            });
+          } else {
+            updatePayment(this.paymentForm).then(() => {
+              this.$message.success("更新成功");
+              this.dialogVisible = false;
+              this.fetchPayments();
+            });
+          }
+        }
+      })
     },
   },
 };
