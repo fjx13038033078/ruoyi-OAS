@@ -51,11 +51,6 @@ public class Feedback implements Serializable {
     private Integer status;
 
     /**
-     * 图片
-     */
-    private String image;
-
-    /**
      * 回复内容
      */
     private String replyContent;

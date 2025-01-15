@@ -74,6 +74,14 @@ public class FeedbackServiceImpl implements FeedbackService {
         return rows > 0;
     }
 
+    @Override
+    public boolean replyFeedback(Feedback feedback) {
+        feedback.setStatus(1);
+        feedback.setReplyTime(LocalDateTime.now());
+        int rows = feedbackMapper.replyFeedback(feedback);
+        return rows > 0;
+    }
+
     /**
      * 删除反馈记录
      *

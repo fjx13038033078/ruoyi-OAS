@@ -48,7 +48,7 @@ public interface FeedbackMapper {
      * @param feedback 反馈记录
      * @return 影响行数
      */
-    int updateFeedback(Feedback feedback);
+    int replyFeedback(Feedback feedback);
 
     /**
      * 删除反馈记录

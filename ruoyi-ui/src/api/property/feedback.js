@@ -35,6 +35,15 @@ export function addFeedback(data) {
   })
 }
 
+// 回复反馈
+export function replyFeedback(data) {
+  return request({
+    url: '/property/feedback/reply',
+    method: 'post',
+    data: data
+  })
+}
+
 // 删除反馈记录
 export function deleteFeedback(feedbackId) {
   return request({
