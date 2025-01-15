@@ -60,7 +60,7 @@ public class Payment implements Serializable {
 
     /**
      * 缴费状态
-     * 0 - 待缴费，1 - 已缴费，2 - 缴费失败
+     * 0 - 待缴费，1 - 已缴费
      */
     private Integer status;
 
