@@ -58,8 +58,8 @@
         <!-- 场馆场地数量 -->
         <el-col :span="12">
           <el-card style="margin-right: 20px; height: 420px;">
-            <h3 slot="header">古诗词发布排行榜</h3>
-              <div id="poemCourtChart" style="height: 300px;"></div> <!-- echarts 柱状图 -->
+            <h3 slot="header">平台简介</h3>
+            <p>请在这里填写更多的文字说明</p>
           </el-card>
         </el-col>
       </el-row>
@@ -73,7 +73,6 @@
 </template>
 <script>
 import {listNotice, getNotice} from "@/api/system/notice";
-import * as echarts from 'echarts';
 
 
 export default {
@@ -130,10 +129,6 @@ export default {
   created() {
     this.getList();
   },
-  mounted() {
-    this.initPoemCourtChart(); // 初始化 echarts 柱状图
-    this.initEchartsText(); // 初始化 ECharts 动画文本
-  },
   methods: {
     /** 查询公告列表 */
     getList() {
@@ -153,91 +148,6 @@ export default {
         this.loading = false;
       });
     },
-    // 获取场馆场地数量映射的数据并更新到图表中
-    fetchPoemCourtMapData() {
-      getTopUsersByPoemCount().then(response => {
-        this.topUserMapData = response.data;
-        this.updateTopUserChart();
-      })
-    },
-    // 初始化 echarts 柱状图
-    initPoemCourtChart() {
-      this.poemCourtChart = echarts.init(document.getElementById("poemCourtChart"));
-      this.fetchPoemCourtMapData(); // 获取数据并更新图表
-    },
-    updateTopUserChart(){
-      // 使用获取到的数据更新图表
-      const userNames = Object.keys(this.topUserMapData);
-      const countPoems = Object.values(this.topUserMapData);
-      const option = {
-        // echarts 配置项
-        xAxis: {
-          type: "category",
-          data: userNames
-        },
-        yAxis: {
-          type: "value"
-        },
-        series: [{
-          data: countPoems,
-          type: "bar"
-        }]
-      };
-      this.poemCourtChart.setOption(option);
-    },
-    // 初始化 ECharts 动画文本
-    initEchartsText() {
-      const chartDom = this.$refs.echartsText;
-      const myChart = echarts.init(chartDom);
-      const option = {
-        graphic: {
-          elements: [
-            {
-              type: 'text',
-              left: 'center',
-              top: 'center',
-              style: {
-                text: '古诗词交流平台',
-                fontSize: 80,
-                fontWeight: 'bold',
-                lineDash: [0, 200],
-                lineDashOffset: 0,
-                fill: 'transparent',
-                stroke: '#000',
-                lineWidth: 1
-              },
-              keyframeAnimation: {
-                duration: 3000,
-                loop: true,
-                keyframes: [
-                  {
-                    percent: 0.7,
-                    style: {
-                      fill: 'transparent',
-                      lineDashOffset: 200,
-                      lineDash: [200, 0]
-                    }
-                  },
-                  {
-                    percent: 0.8,
-                    style: {
-                      fill: 'transparent'
-                    }
-                  },
-                  {
-                    percent: 1,
-                    style: {
-                      fill: 'black'
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      };
-      myChart.setOption(option);
-    }
   }
 };
 </script>
