@@ -4,7 +4,7 @@
       <!-- 新增缴费记录按钮 -->
       <el-row :gutter="20" class="mb-20" style="margin-bottom: 20px;">
         <el-col>
-          <el-button type="primary" @click="handleAddPayment">新增缴费</el-button>
+          <el-button type="primary" @click="handleAddPayment" v-hasPermi="['property:payment:add']">新增缴费</el-button>
         </el-col>
       </el-row>
 
@@ -34,11 +34,12 @@
               type="success"
               size="mini"
               @click="handleUpdateStatus(row)"
+              v-hasPermi="['property:payment:pay']"
             >
               缴费
             </el-button>
-            <el-button type="info" size="mini" @click="handleView(row)">查看</el-button>
-            <el-button type="danger" size="mini" @click="handleDelete(row)">删除</el-button>
+            <el-button type="info" size="mini" @click="handleView(row)" v-hasPermi="['property:payment:view']">查看</el-button>
+            <el-button type="danger" size="mini" @click="handleDelete(row)" v-hasPermi="['property:payment:delete']">删除</el-button>
           </template>
         </el-table-column>
       </el-table>

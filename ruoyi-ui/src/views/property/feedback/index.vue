@@ -3,7 +3,7 @@
     <!-- 新增反馈按钮 -->
     <el-row :gutter="20" class="mb-20">
       <el-col>
-        <el-button type="primary" @click="handleAddFeedback">新增反馈</el-button>
+        <el-button type="primary" @click="handleAddFeedback" v-hasPermi="['property:feedback:add']">新增反馈</el-button>
       </el-col>
     </el-row>
 
@@ -25,8 +25,8 @@
       </el-table-column>
       <el-table-column label="操作" align="center">
         <template #default="scope">
-          <el-button size="mini" @click="handleView(scope.row)">查看详情</el-button>
-          <el-button type="danger" size="mini" @click="handleDelete(scope.row.feedbackId)">删除</el-button>
+          <el-button size="mini" @click="handleView(scope.row)" v-hasPermi="['property:feedback:view']">查看详情</el-button>
+          <el-button type="danger" size="mini" @click="handleDelete(scope.row.feedbackId)" v-hasPermi="['property:feedback:delete']">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -75,6 +75,7 @@
           v-if="currentFeedback.status === 0"
           type="primary"
           @click="submitReply"
+          v-hasPermi="['property:feedback:reply']"
         >
           回复
         </el-button>

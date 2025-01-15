@@ -4,7 +4,7 @@
       <!-- 新增报修按钮 -->
       <el-row :gutter="20" class="mb-20" style="margin-bottom: 20px;">
         <el-col>
-          <el-button type="primary" @click="handleAddRepair">新增报修</el-button>
+          <el-button type="primary" @click="handleAddRepair" v-hasPermi="['property:repair:add']">新增报修</el-button>
         </el-col>
       </el-row>
 
@@ -35,17 +35,18 @@
         </el-table-column>
         <el-table-column label="操作" align="center" width="350px">
           <template #default="{ row }">
-            <el-button type="success" size="mini" @click="handleUpdateStatus(row)">更改状态</el-button>
-            <el-button type="info" size="mini" @click="handleView(row)">查看</el-button>
+            <el-button type="success" size="mini" @click="handleUpdateStatus(row)" v-hasPermi="['property:repair:change']">更改状态</el-button>
+            <el-button type="info" size="mini" @click="handleView(row)" v-hasPermi="['property:repair:view']">查看</el-button>
             <el-button
               v-if="row.status === 0"
               type="primary"
               size="mini"
               @click="handleEdit(row)"
+              v-hasPermi="['property:repair:edit']"
             >
               编辑
             </el-button>
-            <el-button type="danger" size="mini" @click="handleDelete(row)">删除</el-button>
+            <el-button type="danger" size="mini" @click="handleDelete(row)" v-hasPermi="['property:repair:delete']">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -101,7 +102,7 @@
             <el-input type="textarea" v-model="viewRepairForm.description" disabled></el-input>
           </el-form-item>
           <el-form-item label="报修图片">
-            <ImagePreview :src="viewRepairForm.repairImage" :disabled="isReadOnly"></ImagePreview>
+            <ImagePreview :src="viewRepairForm.repairImage"></ImagePreview>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
