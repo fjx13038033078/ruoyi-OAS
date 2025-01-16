@@ -73,7 +73,7 @@
           <el-form-item label="报修描述">
             <el-input type="textarea" v-model="repairForm.description" placeholder="请输入报修描述"></el-input>
           </el-form-item>
-          <el-form-item label="保修图片">
+          <el-form-item label="报修图片">
             <ImageUpload v-model="repairForm.repairImage"></ImageUpload>
           </el-form-item>
         </el-form>
