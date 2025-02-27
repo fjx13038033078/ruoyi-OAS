@@ -1,5 +1,5 @@
 
-# CPS（Community property management system的缩写）
+# OAS（OA system的缩写）
 
 ## 内置功能
 
