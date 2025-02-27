@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 @RequiredArgsConstructor
-public class OasVehicleApplication implements Serializable {
+public class VehicleApplication implements Serializable {
     /**
      * 申请ID，主键，自增
      */

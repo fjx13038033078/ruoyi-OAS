@@ -1,6 +1,6 @@
 package com.ruoyi.vehicle.mapper;
 
-import com.ruoyi.vehicle.domain.OasVehicle;
+import com.ruoyi.vehicle.domain.Vehicle;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -10,26 +10,26 @@ import java.util.List;
  * @date 2025/2/27 11:40
  */
 @Mapper
-public interface OasVehicleMapper {
+public interface VehicleMapper {
     /**
      * 获取所有车辆信息
      */
-    List<OasVehicle> getAllVehicles();
+    List<Vehicle> getAllVehicles();
 
     /**
      * 根据车辆ID获取车辆信息
      */
-    OasVehicle getVehicleById(Long vehicleId);
+    Vehicle getVehicleById(Long vehicleId);
 
     /**
      * 添加车辆信息
      */
-    int addVehicle(OasVehicle vehicle);
+    int addVehicle(Vehicle vehicle);
 
     /**
      * 更新车辆信息
      */
-    int updateVehicle(OasVehicle vehicle);
+    int updateVehicle(Vehicle vehicle);
 
     /**
      * 删除车辆信息

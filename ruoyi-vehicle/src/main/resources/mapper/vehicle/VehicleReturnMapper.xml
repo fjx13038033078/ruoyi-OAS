@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ruoyi.vehicle.mapper.OasVehicleReturnMapper">
+<mapper namespace="com.ruoyi.vehicle.mapper.VehicleReturnMapper">
 
     <!-- 定义结果映射 -->
-    <resultMap id="OasVehicleReturnResult" type="com.ruoyi.vehicle.domain.OasVehicleReturn">
+    <resultMap id="OasVehicleReturnResult" type="com.ruoyi.vehicle.domain.VehicleReturn">
         <id property="returnId" column="return_id"/>
         <result property="applicationId" column="application_id"/>
         <result property="returnDate" column="return_date"/>
@@ -21,13 +21,13 @@
     </select>
 
     <!-- 添加车辆归还记录 -->
-    <insert id="addReturn" parameterType="com.ruoyi.vehicle.domain.OasVehicleReturn">
+    <insert id="addReturn" parameterType="com.ruoyi.vehicle.domain.VehicleReturn">
         INSERT INTO oas_vehicle_return (application_id, return_date, odometer_reading)
         VALUES (#{applicationId}, #{returnDate}, #{odometerReading})
     </insert>
 
     <!-- 更新车辆归还记录 -->
-    <update id="updateReturn" parameterType="com.ruoyi.vehicle.domain.OasVehicleReturn">
+    <update id="updateReturn" parameterType="com.ruoyi.vehicle.domain.VehicleReturn">
         UPDATE oas_vehicle_return
         SET return_date = #{returnDate}, odometer_reading = #{odometerReading}
         WHERE return_id = #{returnId}

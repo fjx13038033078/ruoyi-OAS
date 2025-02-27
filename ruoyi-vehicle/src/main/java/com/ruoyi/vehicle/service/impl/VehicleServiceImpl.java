@@ -1,8 +1,8 @@
 package com.ruoyi.vehicle.service.impl;
 
-import com.ruoyi.vehicle.domain.OasVehicle;
-import com.ruoyi.vehicle.mapper.OasVehicleMapper;
-import com.ruoyi.vehicle.service.OasVehicleService;
+import com.ruoyi.vehicle.domain.Vehicle;
+import com.ruoyi.vehicle.mapper.VehicleMapper;
+import com.ruoyi.vehicle.service.VehicleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +14,9 @@ import java.util.List;
  */
 @Service
 @RequiredArgsConstructor
-public class OasVehicleServiceImpl implements OasVehicleService {
+public class VehicleServiceImpl implements VehicleService {
 
-    private final OasVehicleMapper vehicleMapper;
+    private final VehicleMapper vehicleMapper;
 
     /**
      * 查询所有车辆信息
@@ -24,7 +24,7 @@ public class OasVehicleServiceImpl implements OasVehicleService {
      * @return 车辆列表
      */
     @Override
-    public List<OasVehicle> getAllVehicles() {
+    public List<Vehicle> getAllVehicles() {
         return vehicleMapper.getAllVehicles();
     }
 
@@ -35,7 +35,7 @@ public class OasVehicleServiceImpl implements OasVehicleService {
      * @return 车辆信息
      */
     @Override
-    public OasVehicle getVehicleById(Long vehicleId) {
+    public Vehicle getVehicleById(Long vehicleId) {
         return vehicleMapper.getVehicleById(vehicleId);
     }
 
@@ -46,7 +46,7 @@ public class OasVehicleServiceImpl implements OasVehicleService {
      * @return 是否添加成功
      */
     @Override
-    public boolean addVehicle(OasVehicle vehicle) {
+    public boolean addVehicle(Vehicle vehicle) {
         int rows = vehicleMapper.addVehicle(vehicle);
         return rows > 0;
     }
@@ -58,7 +58,7 @@ public class OasVehicleServiceImpl implements OasVehicleService {
      * @return 是否更新成功
      */
     @Override
-    public boolean updateVehicle(OasVehicle vehicle) {
+    public boolean updateVehicle(Vehicle vehicle) {
         int rows = vehicleMapper.updateVehicle(vehicle);
         return rows > 0;
     }

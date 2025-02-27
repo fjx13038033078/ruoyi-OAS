@@ -1,8 +1,8 @@
 package com.ruoyi.vehicle.service.impl;
 
-import com.ruoyi.vehicle.domain.OasVehicleReturn;
-import com.ruoyi.vehicle.mapper.OasVehicleReturnMapper;
-import com.ruoyi.vehicle.service.OasVehicleReturnService;
+import com.ruoyi.vehicle.domain.VehicleReturn;
+import com.ruoyi.vehicle.mapper.VehicleReturnMapper;
+import com.ruoyi.vehicle.service.VehicleReturnService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +14,9 @@ import java.util.List;
  */
 @Service
 @RequiredArgsConstructor
-public class OasVehicleReturnServiceImpl implements OasVehicleReturnService {
+public class VehicleReturnServiceImpl implements VehicleReturnService {
 
-    private final OasVehicleReturnMapper vehicleReturnMapper;
+    private final VehicleReturnMapper vehicleReturnMapper;
 
     /**
      * 查询所有车辆归还记录
@@ -24,7 +24,7 @@ public class OasVehicleReturnServiceImpl implements OasVehicleReturnService {
      * @return 车辆归还记录列表
      */
     @Override
-    public List<OasVehicleReturn> getAllVehicleReturns() {
+    public List<VehicleReturn> getAllVehicleReturns() {
         return vehicleReturnMapper.getAllReturns();
     }
 
@@ -35,7 +35,7 @@ public class OasVehicleReturnServiceImpl implements OasVehicleReturnService {
      * @return 车辆归还记录
      */
     @Override
-    public OasVehicleReturn getVehicleReturnByApplicationId(Long applicationId) {
+    public VehicleReturn getVehicleReturnByApplicationId(Long applicationId) {
         return vehicleReturnMapper.getReturnByApplicationId(applicationId);
     }
 
@@ -46,7 +46,7 @@ public class OasVehicleReturnServiceImpl implements OasVehicleReturnService {
      * @return 是否添加成功
      */
     @Override
-    public boolean addVehicleReturn(OasVehicleReturn vehicleReturn) {
+    public boolean addVehicleReturn(VehicleReturn vehicleReturn) {
         int rows = vehicleReturnMapper.addReturn(vehicleReturn);
         return rows > 0;
     }
@@ -58,7 +58,7 @@ public class OasVehicleReturnServiceImpl implements OasVehicleReturnService {
      * @return 是否更新成功
      */
     @Override
-    public boolean updateVehicleReturn(OasVehicleReturn vehicleReturn) {
+    public boolean updateVehicleReturn(VehicleReturn vehicleReturn) {
         int rows = vehicleReturnMapper.updateReturn(vehicleReturn);
         return rows > 0;
     }

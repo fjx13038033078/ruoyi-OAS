@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ruoyi.vehicle.mapper.OasVehicleMapper">
+<mapper namespace="com.ruoyi.vehicle.mapper.VehicleMapper">
 
     <!-- 定义结果映射 -->
-    <resultMap id="OasVehicleResult" type="com.ruoyi.vehicle.domain.OasVehicle">
+    <resultMap id="OasVehicleResult" type="com.ruoyi.vehicle.domain.Vehicle">
         <id property="vehicleId" column="vehicle_id"/>
         <result property="vehicleNumber" column="vehicle_number"/>
         <result property="vehicleType" column="vehicle_type"/>
@@ -22,13 +22,13 @@
     </select>
 
     <!-- 添加车辆信息 -->
-    <insert id="addVehicle" parameterType="com.ruoyi.vehicle.domain.OasVehicle">
+    <insert id="addVehicle" parameterType="com.ruoyi.vehicle.domain.Vehicle">
         INSERT INTO oas_vehicle (vehicle_number, vehicle_type, brand, model)
         VALUES (#{vehicleNumber}, #{vehicleType}, #{brand}, #{model})
     </insert>
 
     <!-- 更新车辆信息 -->
-    <update id="updateVehicle" parameterType="com.ruoyi.vehicle.domain.OasVehicle">
+    <update id="updateVehicle" parameterType="com.ruoyi.vehicle.domain.Vehicle">
         UPDATE oas_vehicle
         SET vehicle_number = #{vehicleNumber}, vehicle_type = #{vehicleType}, brand = #{brand}, model = #{model}
         WHERE vehicle_id = #{vehicleId}

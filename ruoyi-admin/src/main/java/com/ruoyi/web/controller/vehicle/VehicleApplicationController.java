@@ -1,8 +1,8 @@
 package com.ruoyi.web.controller.vehicle;
 
 import com.ruoyi.common.core.controller.BaseController;
-import com.ruoyi.vehicle.domain.OasVehicleApplication;
-import com.ruoyi.vehicle.service.OasVehicleApplicationService;
+import com.ruoyi.vehicle.domain.VehicleApplication;
+import com.ruoyi.vehicle.service.VehicleApplicationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import com.ruoyi.common.core.domain.AjaxResult;
@@ -17,9 +17,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/oas/vehicle/application")
-public class OasVehicleApplicationController extends BaseController {
+public class VehicleApplicationController extends BaseController {
 
-    private final OasVehicleApplicationService oasVehicleApplicationService;
+    private final VehicleApplicationService oasVehicleApplicationService;
 
     /**
      * 获取所有用车申请记录
@@ -28,7 +28,7 @@ public class OasVehicleApplicationController extends BaseController {
     @GetMapping("/listAll")
     public TableDataInfo listAllVehicleApplications() {
         startPage();
-        List<OasVehicleApplication> allVehicleApplications = oasVehicleApplicationService.getAllVehicleApplications();
+        List<VehicleApplication> allVehicleApplications = oasVehicleApplicationService.getAllVehicleApplications();
         return getDataTable(allVehicleApplications);
     }
 
@@ -39,7 +39,7 @@ public class OasVehicleApplicationController extends BaseController {
      */
     @GetMapping("/listByUserId")
     public AjaxResult listVehicleApplicationsByUserId(@RequestParam Long userId) {
-        List<OasVehicleApplication> applications = oasVehicleApplicationService.getVehicleApplicationsByUserId(userId);
+        List<VehicleApplication> applications = oasVehicleApplicationService.getVehicleApplicationsByUserId(userId);
         return success(applications);
     }
 
@@ -49,7 +49,7 @@ public class OasVehicleApplicationController extends BaseController {
      * @return 操作结果
      */
     @PostMapping("/add")
-    public AjaxResult addVehicleApplication(@RequestBody OasVehicleApplication application) {
+    public AjaxResult addVehicleApplication(@RequestBody VehicleApplication application) {
         return toAjax(oasVehicleApplicationService.addVehicleApplication(application));
     }
 
@@ -59,7 +59,7 @@ public class OasVehicleApplicationController extends BaseController {
      * @return 操作结果
      */
     @PostMapping("/update")
-    public AjaxResult updateVehicleApplication(@RequestBody OasVehicleApplication application) {
+    public AjaxResult updateVehicleApplication(@RequestBody VehicleApplication application) {
         return toAjax(oasVehicleApplicationService.updateVehicleApplication(application));
     }
 

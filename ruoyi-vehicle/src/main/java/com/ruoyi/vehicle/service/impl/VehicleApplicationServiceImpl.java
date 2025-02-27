@@ -1,8 +1,8 @@
 package com.ruoyi.vehicle.service.impl;
 
-import com.ruoyi.vehicle.domain.OasVehicleApplication;
-import com.ruoyi.vehicle.mapper.OasVehicleApplicationMapper;
-import com.ruoyi.vehicle.service.OasVehicleApplicationService;
+import com.ruoyi.vehicle.domain.VehicleApplication;
+import com.ruoyi.vehicle.mapper.VehicleApplicationMapper;
+import com.ruoyi.vehicle.service.VehicleApplicationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +14,9 @@ import java.util.List;
  */
 @Service
 @RequiredArgsConstructor
-public class OasVehicleApplicationServiceImpl implements OasVehicleApplicationService {
+public class VehicleApplicationServiceImpl implements VehicleApplicationService {
 
-    private final OasVehicleApplicationMapper vehicleApplicationMapper;
+    private final VehicleApplicationMapper vehicleApplicationMapper;
 
     /**
      * 查询所有用车申请
@@ -24,7 +24,7 @@ public class OasVehicleApplicationServiceImpl implements OasVehicleApplicationSe
      * @return 用车申请列表
      */
     @Override
-    public List<OasVehicleApplication> getAllVehicleApplications() {
+    public List<VehicleApplication> getAllVehicleApplications() {
         return vehicleApplicationMapper.getAllApplications();
     }
 
@@ -35,7 +35,7 @@ public class OasVehicleApplicationServiceImpl implements OasVehicleApplicationSe
      * @return 用车申请记录列表
      */
     @Override
-    public List<OasVehicleApplication> getVehicleApplicationsByUserId(Long userId) {
+    public List<VehicleApplication> getVehicleApplicationsByUserId(Long userId) {
         return vehicleApplicationMapper.getApplicationsByUserId(userId);
     }
 
@@ -46,7 +46,7 @@ public class OasVehicleApplicationServiceImpl implements OasVehicleApplicationSe
      * @return 是否添加成功
      */
     @Override
-    public boolean addVehicleApplication(OasVehicleApplication application) {
+    public boolean addVehicleApplication(VehicleApplication application) {
         application.setStatus("待审批"); // 默认待审批
         int rows = vehicleApplicationMapper.addApplication(application);
         return rows > 0;
@@ -59,7 +59,7 @@ public class OasVehicleApplicationServiceImpl implements OasVehicleApplicationSe
      * @return 是否更新成功
      */
     @Override
-    public boolean updateVehicleApplication(OasVehicleApplication application) {
+    public boolean updateVehicleApplication(VehicleApplication application) {
         int rows = vehicleApplicationMapper.updateApplication(application);
         return rows > 0;
     }

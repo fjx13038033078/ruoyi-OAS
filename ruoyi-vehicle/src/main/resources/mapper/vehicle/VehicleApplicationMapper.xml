@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ruoyi.vehicle.mapper.OasVehicleApplicationMapper">
+<mapper namespace="com.ruoyi.vehicle.mapper.VehicleApplicationMapper">
 
     <!-- 定义结果映射 -->
-    <resultMap id="OasVehicleApplicationResult" type="com.ruoyi.vehicle.domain.OasVehicleApplication">
+    <resultMap id="OasVehicleApplicationResult" type="com.ruoyi.vehicle.domain.VehicleApplication">
         <id property="applicationId" column="application_id"/>
         <result property="userId" column="user_id"/>
         <result property="vehicleId" column="vehicle_id"/>
@@ -30,13 +30,13 @@
     </select>
 
     <!-- 添加用车申请 -->
-    <insert id="addApplication" parameterType="com.ruoyi.vehicle.domain.OasVehicleApplication">
+    <insert id="addApplication" parameterType="com.ruoyi.vehicle.domain.VehicleApplication">
         INSERT INTO oas_vehicle_application (user_id, vehicle_id, start_date, end_date, reason, status, approval_user)
         VALUES (#{userId}, #{vehicleId}, #{startDate}, #{endDate}, #{reason}, #{status}, #{approvalUser})
     </insert>
 
     <!-- 更新用车申请 -->
-    <update id="updateApplication" parameterType="com.ruoyi.vehicle.domain.OasVehicleApplication">
+    <update id="updateApplication" parameterType="com.ruoyi.vehicle.domain.VehicleApplication">
         UPDATE oas_vehicle_application
         SET user_id = #{userId}, vehicle_id = #{vehicleId}, start_date = #{startDate}, end_date = #{endDate},
             reason = #{reason}, status = #{status}, approval_user = #{approvalUser}

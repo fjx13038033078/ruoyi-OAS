@@ -19,7 +19,7 @@ import java.io.Serializable;
 @Setter
 @ToString
 @RequiredArgsConstructor
-public class OasVehicle implements Serializable {
+public class Vehicle implements Serializable {
 
     /**
      * 车辆ID，主键，自增

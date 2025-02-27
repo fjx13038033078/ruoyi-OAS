@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 @RequiredArgsConstructor
-public class OasVehicleReturn implements Serializable {
+public class VehicleReturn implements Serializable {
     /**
      * 归还ID，主键，自增
      */

@@ -3,8 +3,8 @@ package com.ruoyi.web.controller.vehicle;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.page.TableDataInfo;
-import com.ruoyi.vehicle.domain.OasVehicleReturn;
-import com.ruoyi.vehicle.service.OasVehicleReturnService;
+import com.ruoyi.vehicle.domain.VehicleReturn;
+import com.ruoyi.vehicle.service.VehicleReturnService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,9 +17,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/oas/vehicle/return")
-public class OasVehicleReturnController extends BaseController {
+public class VehicleReturnController extends BaseController {
 
-    private final OasVehicleReturnService oasVehicleReturnService;
+    private final VehicleReturnService oasVehicleReturnService;
 
     /**
      * 获取所有车辆归还记录
@@ -28,7 +28,7 @@ public class OasVehicleReturnController extends BaseController {
     @GetMapping("/listAll")
     public TableDataInfo listAllVehicleReturns() {
         startPage();
-        List<OasVehicleReturn> allVehicleReturns = oasVehicleReturnService.getAllVehicleReturns();
+        List<VehicleReturn> allVehicleReturns = oasVehicleReturnService.getAllVehicleReturns();
         return getDataTable(allVehicleReturns);
     }
 
@@ -48,7 +48,7 @@ public class OasVehicleReturnController extends BaseController {
      * @return 操作结果
      */
     @PostMapping("/add")
-    public AjaxResult addVehicleReturn(@RequestBody OasVehicleReturn vehicleReturn) {
+    public AjaxResult addVehicleReturn(@RequestBody VehicleReturn vehicleReturn) {
         return toAjax(oasVehicleReturnService.addVehicleReturn(vehicleReturn));
     }
 
@@ -58,7 +58,7 @@ public class OasVehicleReturnController extends BaseController {
      * @return 操作结果
      */
     @PostMapping("/update")
-    public AjaxResult updateVehicleReturn(@RequestBody OasVehicleReturn vehicleReturn) {
+    public AjaxResult updateVehicleReturn(@RequestBody VehicleReturn vehicleReturn) {
         return toAjax(oasVehicleReturnService.updateVehicleReturn(vehicleReturn));
     }
 

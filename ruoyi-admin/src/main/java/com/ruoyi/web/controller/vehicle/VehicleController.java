@@ -3,8 +3,8 @@ package com.ruoyi.web.controller.vehicle;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.page.TableDataInfo;
-import com.ruoyi.vehicle.domain.OasVehicle;
-import com.ruoyi.vehicle.service.OasVehicleService;
+import com.ruoyi.vehicle.domain.Vehicle;
+import com.ruoyi.vehicle.service.VehicleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,9 +17,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/oas/vehicle")
-public class OasVehicleController extends BaseController {
+public class VehicleController extends BaseController {
 
-    private final OasVehicleService vehicleService;
+    private final VehicleService vehicleService;
 
     /**
      * 获取所有车辆信息
@@ -28,7 +28,7 @@ public class OasVehicleController extends BaseController {
     @GetMapping("/listAll")
     public TableDataInfo listAllVehicles() {
         startPage();
-        List<OasVehicle> allVehicles = vehicleService.getAllVehicles();
+        List<Vehicle> allVehicles = vehicleService.getAllVehicles();
         return getDataTable(allVehicles);
     }
 
@@ -48,7 +48,7 @@ public class OasVehicleController extends BaseController {
      * @return 操作结果
      */
     @PostMapping("/add")
-    public AjaxResult addVehicle(@RequestBody OasVehicle vehicle) {
+    public AjaxResult addVehicle(@RequestBody Vehicle vehicle) {
         return toAjax(vehicleService.addVehicle(vehicle));
     }
 
@@ -58,7 +58,7 @@ public class OasVehicleController extends BaseController {
      * @return 操作结果
      */
     @PostMapping("/update")
-    public AjaxResult updateVehicle(@RequestBody OasVehicle vehicle) {
+    public AjaxResult updateVehicle(@RequestBody Vehicle vehicle) {
         return toAjax(vehicleService.updateVehicle(vehicle));
     }
 

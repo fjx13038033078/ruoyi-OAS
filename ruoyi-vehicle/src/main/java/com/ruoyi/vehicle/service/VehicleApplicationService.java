@@ -1,6 +1,6 @@
 package com.ruoyi.vehicle.service;
 
-import com.ruoyi.vehicle.domain.OasVehicleApplication;
+import com.ruoyi.vehicle.domain.VehicleApplication;
 
 import java.util.List;
 
@@ -8,13 +8,13 @@ import java.util.List;
  * @Author 范佳兴
  * @date 2025/2/27 14:17
  */
-public interface OasVehicleApplicationService {
+public interface VehicleApplicationService {
     /**
      * 查询所有用车申请
      *
      * @return 用车申请列表
      */
-    List<OasVehicleApplication> getAllVehicleApplications();
+    List<VehicleApplication> getAllVehicleApplications();
 
     /**
      * 根据用户ID查询用车申请记录
@@ -22,7 +22,7 @@ public interface OasVehicleApplicationService {
      * @param userId 用户ID
      * @return 用车申请记录列表
      */
-    List<OasVehicleApplication> getVehicleApplicationsByUserId(Long userId);
+    List<VehicleApplication> getVehicleApplicationsByUserId(Long userId);
 
     /**
      * 添加用车申请记录
@@ -30,7 +30,7 @@ public interface OasVehicleApplicationService {
      * @param application 用车申请
      * @return 是否添加成功
      */
-    boolean addVehicleApplication(OasVehicleApplication application);
+    boolean addVehicleApplication(VehicleApplication application);
 
     /**
      * 更新用车申请记录
@@ -38,7 +38,7 @@ public interface OasVehicleApplicationService {
      * @param application 用车申请
      * @return 是否更新成功
      */
-    boolean updateVehicleApplication(OasVehicleApplication application);
+    boolean updateVehicleApplication(VehicleApplication application);
 
     /**
      * 删除用车申请记录
