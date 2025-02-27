@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.vehicle.mapper.OasVehicleMapper">
+
+    <!-- 定义结果映射 -->
+    <resultMap id="OasVehicleResult" type="com.ruoyi.vehicle.domain.OasVehicle">
+        <id property="vehicleId" column="vehicle_id"/>
+        <result property="vehicleNumber" column="vehicle_number"/>
+        <result property="vehicleType" column="vehicle_type"/>
+        <result property="brand" column="brand"/>
+        <result property="model" column="model"/>
+    </resultMap>
+
+    <!-- 获取所有车辆信息 -->
+    <select id="getAllVehicles" resultMap="OasVehicleResult">
+        SELECT * FROM oas_vehicle
+    </select>
+
+    <!-- 根据车辆ID获取车辆信息 -->
+    <select id="getVehicleById" parameterType="Long" resultMap="OasVehicleResult">
+        SELECT * FROM oas_vehicle WHERE vehicle_id = #{vehicleId}
+    </select>
+
+    <!-- 添加车辆信息 -->
+    <insert id="addVehicle" parameterType="com.ruoyi.vehicle.domain.OasVehicle">
+        INSERT INTO oas_vehicle (vehicle_number, vehicle_type, brand, model)
+        VALUES (#{vehicleNumber}, #{vehicleType}, #{brand}, #{model})
+    </insert>
+
+    <!-- 更新车辆信息 -->
+    <update id="updateVehicle" parameterType="com.ruoyi.vehicle.domain.OasVehicle">
+        UPDATE oas_vehicle
+        SET vehicle_number = #{vehicleNumber}, vehicle_type = #{vehicleType}, brand = #{brand}, model = #{model}
+        WHERE vehicle_id = #{vehicleId}
+    </update>
+
+    <!-- 删除车辆信息 -->
+    <delete id="deleteVehicle" parameterType="Long">
+        DELETE FROM oas_vehicle WHERE vehicle_id = #{vehicleId}
+    </delete>
+
+</mapper>

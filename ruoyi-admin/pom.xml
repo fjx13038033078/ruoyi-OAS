@@ -60,14 +60,31 @@
             <groupId>com.ruoyi</groupId>
             <artifactId>ruoyi-generator</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.ruoyi</groupId>
-            <artifactId>ruoyi-featherball</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>com.ruoyi</groupId>
             <artifactId>ruoyi-property</artifactId>
+            <version>3.8.7</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>ruoyi-office</artifactId>
+            <version>3.8.7</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>ruoyi-leave</artifactId>
+            <version>3.8.7</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>ruoyi-vehicle</artifactId>
             <version>3.8.7</version>
             <scope>compile</scope>
         </dependency>

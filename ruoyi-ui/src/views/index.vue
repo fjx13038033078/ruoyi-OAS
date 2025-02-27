@@ -3,7 +3,7 @@
     <div id="curtain" style="width: 100%; height: 100px">
       <el-row justify="center" align="middle" style="height: 100px" class="background-title">
         <el-col :span="24">
-          <h1 class="centered-title" style="margin-top: -8px" data-text="小区物业管理系统">{{ titleText }}</h1>
+          <h1 class="centered-title" style="margin-top: -8px" data-text="企业OA系统">{{ titleText }}</h1>
         </el-col>
       </el-row>
     </div>
@@ -80,7 +80,7 @@ export default {
   dicts: ['sys_notice_status', 'sys_notice_type'],
   data() {
     return {
-      titleText : '小区物业管理系统',
+      titleText : '企业OA系统',
       // 遮罩层
       loading: true,
       // 选中数组

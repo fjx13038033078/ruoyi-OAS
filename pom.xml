@@ -177,12 +177,6 @@
                 <version>${ruoyi.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-featherball</artifactId>
-                <version>${ruoyi.version}</version>
-            </dependency>
-
             <!-- 通用工具-->
             <dependency>
                 <groupId>com.ruoyi</groupId>
@@ -200,8 +194,10 @@
         <module>ruoyi-quartz</module>
         <module>ruoyi-generator</module>
         <module>ruoyi-common</module>
-        <module>ruoyi-featherball</module>
         <module>ruoyi-property</module>
+        <module>ruoyi-vehicle</module>
+        <module>ruoyi-office</module>
+        <module>ruoyi-leave</module>
     </modules>
     <packaging>pom</packaging>
 

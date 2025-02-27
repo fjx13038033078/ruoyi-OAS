@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.office.mapper.OfficeSupplyMapper">
+
+    <!-- 定义结果映射 -->
+    <resultMap id="OfficeSupplyResult" type="com.ruoyi.office.domain.OfficeSupply">
+        <id property="supplyId" column="supply_id"/>
+        <result property="supplyName" column="supply_name"/>
+        <result property="supplyType" column="supply_type"/>
+        <result property="quantity" column="quantity"/>
+    </resultMap>
+
+    <!-- 查询所有办公用品记录 -->
+    <select id="getAllOfficeSupplies" resultMap="OfficeSupplyResult">
+        SELECT supply_id, supply_name, supply_type, quantity
+        FROM oas_office
+    </select>
+
+    <!-- 根据办公用品ID查询办公用品 -->
+    <select id="getOfficeSupplyById" parameterType="Long" resultMap="OfficeSupplyResult">
+        SELECT supply_id, supply_name, supply_type, quantity
+        FROM oas_office
+        WHERE supply_id = #{supplyId}
+    </select>
+
+    <!-- 添加办公用品记录 -->
+    <insert id="addOfficeSupply" parameterType="com.ruoyi.office.domain.OfficeSupply">
+        INSERT INTO oas_office (supply_name, supply_type, quantity)
+        VALUES (#{supplyName}, #{supplyType}, #{quantity})
+    </insert>
+
+    <!-- 更新办公用品记录 -->
+    <update id="updateOfficeSupply" parameterType="com.ruoyi.office.domain.OfficeSupply">
+        UPDATE oas_office
+        SET supply_name = #{supplyName},
+            supply_type = #{supplyType},
+            quantity = #{quantity}
+        WHERE supply_id = #{supplyId}
+    </update>
+
+    <!-- 删除办公用品记录 -->
+    <delete id="deleteOfficeSupply" parameterType="Long">
+        DELETE FROM oas_office WHERE supply_id = #{supplyId}
+    </delete>
+
+</mapper>

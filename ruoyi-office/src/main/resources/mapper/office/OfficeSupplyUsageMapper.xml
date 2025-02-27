@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.office.mapper.OfficeSupplyUsageMapper">
+
+    <!-- 定义结果映射 -->
+    <resultMap id="OfficeSupplyUsageResult" type="com.ruoyi.office.domain.OfficeSupplyUsage">
+        <id property="usageId" column="usage_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="supplyId" column="supply_id"/>
+        <result property="quantity" column="quantity"/>
+        <result property="usageReason" column="usage_reason"/>
+        <result property="status" column="status"/>
+        <result property="approvalUser" column="approval_user"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <!-- 查询所有办公用品领用记录 -->
+    <select id="getAllOfficeSupplyUsages" resultMap="OfficeSupplyUsageResult">
+        SELECT *
+        FROM oa_office_supply_usage
+    </select>
+
+    <!-- 根据用户ID查询办公用品领用记录 -->
+    <select id="getOfficeSupplyUsagesByUserId" parameterType="Long" resultMap="OfficeSupplyUsageResult">
+        SELECT *
+        FROM oa_office_supply_usage
+        WHERE user_id = #{userId}
+    </select>
+
+    <!-- 添加办公用品领用记录 -->
+    <insert id="addOfficeSupplyUsage" parameterType="com.ruoyi.office.domain.OfficeSupplyUsage">
+        INSERT INTO oa_office_supply_usage (user_id, supply_id, quantity, usage_reason, status, approval_user, create_time)
+        VALUES (#{userId}, #{supplyId}, #{quantity}, #{usageReason}, #{status}, #{approvalUser}, #{createTime})
+    </insert>
+
+    <!-- 更新办公用品领用记录 -->
+    <update id="updateOfficeSupplyUsage" parameterType="com.ruoyi.office.domain.OfficeSupplyUsage">
+        UPDATE oa_office_supply_usage
+        SET user_id = #{userId},
+            supply_id = #{supplyId},
+            quantity = #{quantity},
+            usage_reason = #{usageReason},
+            status = #{status},
+            approval_user = #{approvalUser},
+            create_time = #{createTime}
+        WHERE usage_id = #{usageId}
+    </update>
+
+    <!-- 删除办公用品领用记录 -->
+    <delete id="deleteOfficeSupplyUsage" parameterType="Long">
+        DELETE FROM oa_office_supply_usage WHERE usage_id = #{usageId}
+    </delete>
+
+</mapper>

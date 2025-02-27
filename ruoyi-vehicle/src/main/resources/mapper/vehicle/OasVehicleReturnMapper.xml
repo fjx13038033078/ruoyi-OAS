@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.vehicle.mapper.OasVehicleReturnMapper">
+
+    <!-- 定义结果映射 -->
+    <resultMap id="OasVehicleReturnResult" type="com.ruoyi.vehicle.domain.OasVehicleReturn">
+        <id property="returnId" column="return_id"/>
+        <result property="applicationId" column="application_id"/>
+        <result property="returnDate" column="return_date"/>
+        <result property="odometerReading" column="odometer_reading"/>
+    </resultMap>
+
+    <!-- 获取所有车辆归还记录 -->
+    <select id="getAllReturns" resultMap="OasVehicleReturnResult">
+        SELECT * FROM oas_vehicle_return
+    </select>
+
+    <!-- 根据用车申请ID获取车辆归还记录 -->
+    <select id="getReturnByApplicationId" parameterType="Long" resultMap="OasVehicleReturnResult">
+        SELECT * FROM oas_vehicle_return WHERE application_id = #{applicationId}
+    </select>
+
+    <!-- 添加车辆归还记录 -->
+    <insert id="addReturn" parameterType="com.ruoyi.vehicle.domain.OasVehicleReturn">
+        INSERT INTO oas_vehicle_return (application_id, return_date, odometer_reading)
+        VALUES (#{applicationId}, #{returnDate}, #{odometerReading})
+    </insert>
+
+    <!-- 更新车辆归还记录 -->
+    <update id="updateReturn" parameterType="com.ruoyi.vehicle.domain.OasVehicleReturn">
+        UPDATE oas_vehicle_return
+        SET return_date = #{returnDate}, odometer_reading = #{odometerReading}
+        WHERE return_id = #{returnId}
+    </update>
+
+    <!-- 删除车辆归还记录 -->
+    <delete id="deleteReturn" parameterType="Long">
+        DELETE FROM oas_vehicle_return WHERE return_id = #{returnId}
+    </delete>
+
+</mapper>

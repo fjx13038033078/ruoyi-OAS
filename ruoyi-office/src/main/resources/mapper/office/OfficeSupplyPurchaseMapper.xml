@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.office.mapper.OfficeSupplyPurchaseMapper">
+
+    <!-- 定义结果映射 -->
+    <resultMap id="OfficeSupplyPurchaseResult" type="com.ruoyi.office.domain.OfficeSupplyPurchase">
+        <id property="purchaseId" column="purchase_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="supplyId" column="supply_id"/>
+        <result property="quantity" column="quantity"/>
+        <result property="status" column="status"/>
+        <result property="approvalUser" column="approval_user"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <!-- 查询所有办公用品申购记录 -->
+    <select id="getAllOfficeSupplyPurchases" resultMap="OfficeSupplyPurchaseResult">
+        SELECT *
+        FROM oa_office_supply_purchase
+    </select>
+
+    <!-- 根据用户ID查询办公用品申购记录 -->
+    <select id="getOfficeSupplyPurchasesByUserId" parameterType="Long" resultMap="OfficeSupplyPurchaseResult">
+        SELECT *
+        FROM oa_office_supply_purchase
+        WHERE user_id = #{userId}
+    </select>
+
+    <!-- 添加办公用品申购记录 -->
+    <insert id="addOfficeSupplyPurchase" parameterType="com.ruoyi.office.domain.OfficeSupplyPurchase">
+        INSERT INTO oa_office_supply_purchase (user_id, supply_id, quantity, status, approval_user, create_time)
+        VALUES (#{userId}, #{supplyId}, #{quantity}, #{status}, #{approvalUser}, #{createTime})
+    </insert>
+
+    <!-- 更新办公用品申购记录 -->
+    <update id="updateOfficeSupplyPurchase" parameterType="com.ruoyi.office.domain.OfficeSupplyPurchase">
+        UPDATE oa_office_supply_purchase
+        SET user_id = #{userId},
+            supply_id = #{supplyId},
+            quantity = #{quantity},
+            status = #{status},
+            approval_user = #{approvalUser},
+            create_time = #{createTime}
+        WHERE purchase_id = #{purchaseId}
+    </update>
+
+    <!-- 删除办公用品申购记录 -->
+    <delete id="deleteOfficeSupplyPurchase" parameterType="Long">
+        DELETE FROM oa_office_supply_purchase WHERE purchase_id = #{purchaseId}
+    </delete>
+
+</mapper>
