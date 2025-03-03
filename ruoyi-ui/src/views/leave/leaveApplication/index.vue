@@ -4,7 +4,7 @@
       <!-- 请假申请按钮 -->
       <el-row :gutter="20" class="mb-20" style="margin-bottom: 20px;">
         <el-col>
-          <el-button type="primary" @click="handleAddLeaveApplication">发起请假申请</el-button>
+          <el-button type="primary" @click="handleAddLeaveApplication" v-hasPermi="['leave:application:add']">发起请假申请</el-button>
         </el-col>
       </el-row>
 
@@ -35,6 +35,7 @@
               type="primary"
               size="mini"
               @click="handleView(row)"
+              v-hasPermi="['leave:application:view']"
             >
               查看
             </el-button>
@@ -43,6 +44,7 @@
               size="mini"
               @click="handleDelete(row)"
               v-if="row.status === 0"
+              v-hasPermi="['leave:application:delete']"
             >
               删除
             </el-button>
@@ -51,6 +53,7 @@
               size="mini"
               @click="handleApproval(row)"
               v-if="row.status === 0"
+              v-hasPermi="['leave:application:approve']"
             >
               审批
             </el-button>

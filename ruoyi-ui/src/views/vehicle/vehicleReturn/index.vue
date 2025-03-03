@@ -21,6 +21,7 @@
               type="danger"
               size="mini"
               @click="handleDelete(row)"
+              v-hasPermi="['vehicle:return:delete']"
             >
               删除
             </el-button>

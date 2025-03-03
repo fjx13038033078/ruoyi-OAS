@@ -18,8 +18,12 @@
       <el-table-column label="操作" align="center" width="350px">
         <template #default="{ row }">
           <el-button type="primary" size="mini" @click="handleView(row)">查看</el-button>
-          <el-button type="danger" size="mini" @click="handleDelete(row)" v-if="row.status === 0">删除</el-button>
-          <el-button type="success" size="mini" @click="handleApproval(row)" v-if="row.status === 0">审批</el-button>
+          <el-button type="danger" size="mini" @click="handleDelete(row)" v-if="row.status === 0"
+                     v-hasPermi="['office:purchase:delete']">删除
+          </el-button>
+          <el-button type="success" size="mini" @click="handleApproval(row)" v-if="row.status === 0"
+                     v-hasPermi="['office:purchase:approve']">审批
+          </el-button>
         </template>
       </el-table-column>
     </el-table>

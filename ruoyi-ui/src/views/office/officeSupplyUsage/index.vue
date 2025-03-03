@@ -17,8 +17,12 @@
       <el-table-column label="操作" align="center" width="350px">
         <template #default="{ row }">
           <el-button type="primary" size="mini" @click="handleView(row)">查看</el-button>
-          <el-button type="danger" size="mini" @click="handleDelete(row)" v-if="row.status === 0">删除</el-button>
-          <el-button type="success" size="mini" @click="handleApproval(row)" v-if="row.status === 0">审批</el-button>
+          <el-button type="danger" size="mini" @click="handleDelete(row)" v-if="row.status === 0"
+                     v-hasPermi="['office:usage:delete']">删除
+          </el-button>
+          <el-button type="success" size="mini" @click="handleApproval(row)" v-if="row.status === 0"
+                     v-hasPermi="['office:usage:approve']">审批
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -63,7 +67,11 @@
 </template>
 
 <script>
-import { listAllOfficeSupplyUsages, deleteOfficeSupplyUsage, updateOfficeSupplyUsageStatus } from "@/api/office/officeSupplyUsage";
+import {
+  listAllOfficeSupplyUsages,
+  deleteOfficeSupplyUsage,
+  updateOfficeSupplyUsageStatus
+} from "@/api/office/officeSupplyUsage";
 
 export default {
   data() {
@@ -101,7 +109,7 @@ export default {
       this.viewDialogVisible = true;
     },
     handleDelete(row) {
-      this.$confirm("确定删除该领用记录吗？", "提示", { type: "warning" }).then(() => {
+      this.$confirm("确定删除该领用记录吗？", "提示", {type: "warning"}).then(() => {
         deleteOfficeSupplyUsage(row.usageId).then(() => {
           this.$message.success("删除成功");
           this.fetchUsageList();

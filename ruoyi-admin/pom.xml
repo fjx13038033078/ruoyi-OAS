@@ -63,13 +63,6 @@
 
         <dependency>
             <groupId>com.ruoyi</groupId>
-            <artifactId>ruoyi-property</artifactId>
-            <version>3.8.7</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.ruoyi</groupId>
             <artifactId>ruoyi-office</artifactId>
             <version>3.8.7</version>
             <scope>compile</scope>

@@ -4,7 +4,7 @@
       <!-- 新增车辆按钮 -->
       <el-row :gutter="20" class="mb-20" style="margin-bottom: 20px;">
         <el-col>
-          <el-button type="primary" @click="handleAddVehicle" v-hasPermi="['vehicle:add']">新增车辆</el-button>
+          <el-button type="primary" @click="handleAddVehicle" v-hasPermi="['vehicle:vehicle:add']">新增车辆</el-button>
         </el-col>
       </el-row>
 
@@ -17,10 +17,16 @@
         <el-table-column label="型号" prop="model" align="center"></el-table-column>
         <el-table-column label="操作" align="center" width="300px">
           <template #default="{ row }">
-            <el-button type="success" size="mini" @click="handleAddVehicleApplication(row)" v-hasPermi="['vehicle:apply']">用车申请</el-button>
-            <el-button type="info" size="mini" @click="handleView(row)" v-hasPermi="['vehicle:view']">查看</el-button>
-            <el-button type="primary" size="mini" @click="handleEdit(row)" v-hasPermi="['vehicle:edit']">编辑</el-button>
-            <el-button type="danger" size="mini" @click="handleDelete(row)" v-hasPermi="['vehicle:delete']">删除</el-button>
+            <el-button type="success" size="mini" @click="handleAddVehicleApplication(row)"
+                       v-hasPermi="['vehicle:vehicle:apply']">用车申请
+            </el-button>
+            <el-button type="info" size="mini" @click="handleView(row)" v-hasPermi="['vehicle:vehicle:view']">查看
+            </el-button>
+            <el-button type="primary" size="mini" @click="handleEdit(row)" v-hasPermi="['vehicle:vehicle:edit']">编辑
+            </el-button>
+            <el-button type="danger" size="mini" @click="handleDelete(row)" v-hasPermi="['vehicle:vehicle:delete']">
+              删除
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -88,10 +94,12 @@
       <el-dialog :visible.sync="applicationDialogVisible" title="用车申请" width="40%">
         <el-form :model="vehicleApplicationForm" label-width="100px" ref="applicationFormRef" :rules="applicationRules">
           <el-form-item label="用车开始时间" prop="startDate">
-            <el-date-picker v-model="vehicleApplicationForm.startDate" type="datetime" placeholder="请选择用车开始时间"></el-date-picker>
+            <el-date-picker v-model="vehicleApplicationForm.startDate" type="datetime"
+                            placeholder="请选择用车开始时间"></el-date-picker>
           </el-form-item>
           <el-form-item label="用车结束时间" prop="endDate">
-            <el-date-picker v-model="vehicleApplicationForm.endDate" type="datetime" placeholder="请选择用车结束时间"></el-date-picker>
+            <el-date-picker v-model="vehicleApplicationForm.endDate" type="datetime"
+                            placeholder="请选择用车结束时间"></el-date-picker>
           </el-form-item>
           <el-form-item label="用车理由" prop="reason">
             <el-input v-model="vehicleApplicationForm.reason" placeholder="请输入用车理由"></el-input>
@@ -132,11 +140,11 @@ export default {
         model: "",
       },
       vehicleTypes: [
-        { value: "Sedan", label: "轿车" },
-        { value: "SUV", label: "SUV" },
-        { value: "Truck", label: "卡车" },
-        { value: "Van", label: "面包车" },
-        { value: "Motorcycle", label: "摩托车" },
+        {value: "Sedan", label: "轿车"},
+        {value: "SUV", label: "SUV"},
+        {value: "Truck", label: "卡车"},
+        {value: "Van", label: "面包车"},
+        {value: "Motorcycle", label: "摩托车"},
       ],
       viewDialogVisible: false,
       viewVehicleForm: {},
@@ -152,15 +160,15 @@ export default {
         pageSize: 10,
       },
       rules: {
-        vehicleNumber: [{ required: true, message: "请输入车牌号", trigger: "blur" }],
-        vehicleType: [{ required: true, message: "请输入车辆类型", trigger: "blur" }],
-        brand: [{ required: true, message: "请输入品牌", trigger: "blur" }],
-        model: [{ required: true, message: "请输入型号", trigger: "blur" }],
+        vehicleNumber: [{required: true, message: "请输入车牌号", trigger: "blur"}],
+        vehicleType: [{required: true, message: "请输入车辆类型", trigger: "blur"}],
+        brand: [{required: true, message: "请输入品牌", trigger: "blur"}],
+        model: [{required: true, message: "请输入型号", trigger: "blur"}],
       },
       applicationRules: {
-        startDate: [{ required: true, message: "请选择用车开始时间", trigger: "change" }],
-        endDate: [{ required: true, message: "请选择用车结束时间", trigger: "change" }],
-        reason: [{ required: true, message: "请输入用车理由", trigger: "blur" }],
+        startDate: [{required: true, message: "请选择用车开始时间", trigger: "change"}],
+        endDate: [{required: true, message: "请选择用车结束时间", trigger: "change"}],
+        reason: [{required: true, message: "请输入用车理由", trigger: "blur"}],
       },
     };
   },
@@ -194,12 +202,12 @@ export default {
     handleEdit(row) {
       this.dialogTitle = "编辑车辆信息";
       this.dialogButton = "更新";
-      this.vehicleForm = { ...row };
+      this.vehicleForm = {...row};
       this.dialogVisible = true;
     },
     // 查看车辆详情
     handleView(row) {
-      this.viewVehicleForm = { ...row };
+      this.viewVehicleForm = {...row};
       this.viewDialogVisible = true;
     },
     // 删除车辆信息
