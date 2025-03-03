@@ -19,25 +19,25 @@
     <!-- 查询所有办公用品领用记录 -->
     <select id="getAllOfficeSupplyUsages" resultMap="OfficeSupplyUsageResult">
         SELECT *
-        FROM oa_office_supply_usage
+        FROM oas_office_usage
     </select>
 
     <!-- 根据用户ID查询办公用品领用记录 -->
     <select id="getOfficeSupplyUsagesByUserId" parameterType="Long" resultMap="OfficeSupplyUsageResult">
         SELECT *
-        FROM oa_office_supply_usage
+        FROM oas_office_usage
         WHERE user_id = #{userId}
     </select>
 
     <!-- 添加办公用品领用记录 -->
     <insert id="addOfficeSupplyUsage" parameterType="com.ruoyi.office.domain.OfficeSupplyUsage">
-        INSERT INTO oa_office_supply_usage (user_id, supply_id, quantity, usage_reason, status, approval_user, create_time)
+        INSERT INTO oas_office_usage (user_id, supply_id, quantity, usage_reason, status, approval_user, create_time)
         VALUES (#{userId}, #{supplyId}, #{quantity}, #{usageReason}, #{status}, #{approvalUser}, #{createTime})
     </insert>
 
     <!-- 更新办公用品领用记录 -->
     <update id="updateOfficeSupplyUsage" parameterType="com.ruoyi.office.domain.OfficeSupplyUsage">
-        UPDATE oa_office_supply_usage
+        UPDATE oas_office_usage
         SET user_id = #{userId},
             supply_id = #{supplyId},
             quantity = #{quantity},
@@ -48,9 +48,16 @@
         WHERE usage_id = #{usageId}
     </update>
 
+    <update id="updateApprovalUserAndStatus" parameterType="com.ruoyi.office.domain.OfficeSupplyUsage">
+        UPDATE oas_office_usage
+        SET approval_user = #{approvalUser},
+            status = #{status}
+        WHERE usage_id = #{usageId}
+    </update>
+
     <!-- 删除办公用品领用记录 -->
     <delete id="deleteOfficeSupplyUsage" parameterType="Long">
-        DELETE FROM oa_office_supply_usage WHERE usage_id = #{usageId}
+        DELETE FROM oas_office_usage WHERE usage_id = #{usageId}
     </delete>
 
 </mapper>

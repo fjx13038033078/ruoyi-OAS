@@ -42,6 +42,14 @@ public interface OfficeSupplyUsageService {
     boolean updateOfficeSupplyUsage(OfficeSupplyUsage officeSupplyUsage);
 
     /**
+     * 更新办公用品领用记录的状态
+     *
+     * @param officeSupplyUsage 办公用品领用记录
+     * @return 是否更新成功
+     */
+    boolean updateOfficeSupplyUsageStatus(OfficeSupplyUsage officeSupplyUsage);
+
+    /**
      * 删除办公用品领用记录
      *
      * @param usageId 领用ID

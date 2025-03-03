@@ -17,12 +17,13 @@
         </template>
       </el-table-column>
       <el-table-column label="库存数量" prop="quantity" align="center"></el-table-column>
-      <el-table-column label="操作" align="center" width="300px">
+      <el-table-column label="操作" align="center" width="400px">
         <template #default="{ row }">
           <el-button type="info" size="mini" @click="handleView(row)" v-hasPermi="['office:supply:view']">查看</el-button>
           <el-button type="primary" size="mini" @click="handleEdit(row)" v-hasPermi="['office:supply:edit']">编辑</el-button>
           <el-button type="danger" size="mini" @click="handleDelete(row)" v-hasPermi="['office:supply:delete']">删除</el-button>
           <el-button type="success" size="mini" @click="handlePurchase(row)" v-hasPermi="['office:supply:purchase']">申购</el-button>
+          <el-button type="warning" size="mini" @click="handleUsage(row)" v-hasPermi="['office:supply:usage']">申领</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -92,12 +93,32 @@
         <el-button type="primary" @click="submitPurchase">提交申请</el-button>
       </div>
     </el-dialog>
+
+    <!-- 申领办公用品对话框 -->
+    <el-dialog :visible.sync="usageDialogVisible" title="申领办公用品" width="30%">
+      <el-form :model="usageForm" label-width="100px">
+        <el-form-item label="用品名称">
+          <el-input v-model="usageForm.supplyName" disabled></el-input>
+        </el-form-item>
+        <el-form-item label="申领数量">
+          <el-input-number v-model="usageForm.quantity" :min="1"></el-input-number>
+        </el-form-item>
+        <el-form-item label="申领理由">
+          <el-input type="textarea" v-model="usageForm.usageReason" placeholder="请输入申领理由"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="usageDialogVisible = false">取消</el-button>
+        <el-button type="primary" @click="submitUsage">提交申请</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import { listAllOfficeSupplies, addOfficeSupply, updateOfficeSupply, deleteOfficeSupply } from "@/api/office/officeSupply";
 import {addOfficeSupplyPurchase} from "@/api/office/officeSupplyPurchase";
+import {addOfficeSupplyUsage} from "@/api/office/officeSupplyUsage";
 
 export default {
   data() {
@@ -126,6 +147,13 @@ export default {
         supplyName: "",
         quantity: 1,
         purchaseReason: "",
+      },
+      usageDialogVisible: false, // 申领对话框
+      usageForm: {
+        supplyId: "",
+        supplyName: "",
+        quantity: 1,
+        usageReason: "",
       },
     };
   },
@@ -200,6 +228,28 @@ export default {
       }).then(() => {
         this.$message.success("申购申请提交成功！");
         this.purchaseDialogVisible = false;
+      });
+    },
+    handleUsage(row) {
+      this.usageForm = {
+        supplyId: row.supplyId,
+        supplyName: row.supplyName,
+        quantity: 1,
+        usageReason: "",
+      };
+      this.usageDialogVisible = true;
+    },
+    submitUsage() {
+      if (!this.usageForm.usageReason) {
+        return this.$message.warning("请输入申领理由！");
+      }
+      addOfficeSupplyUsage({
+        supplyId: this.usageForm.supplyId,
+        quantity: this.usageForm.quantity,
+        usageReason: this.usageForm.usageReason,
+      }).then(() => {
+        this.$message.success("申领申请提交成功！");
+        this.usageDialogVisible = false;
       });
     }
   },

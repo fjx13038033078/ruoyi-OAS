@@ -2,6 +2,7 @@ package com.ruoyi.web.controller.office;
 
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
+import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.office.domain.OfficeSupplyUsage;
 import com.ruoyi.office.service.OfficeSupplyUsageService;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +22,9 @@ public class OfficeSupplyUsageController extends BaseController {
     private final OfficeSupplyUsageService officeSupplyUsageService;
 
     @GetMapping("/listAll")
-    public AjaxResult listAllOfficeSupplyUsages() {
+    public TableDataInfo listAllOfficeSupplyUsages() {
         List<OfficeSupplyUsage> usages = officeSupplyUsageService.getAllOfficeSupplyUsages();
-        return success(usages);
+        return getDataTable(usages);
     }
 
     @GetMapping("/getByUserId")
@@ -40,6 +41,11 @@ public class OfficeSupplyUsageController extends BaseController {
     @PostMapping("/update")
     public AjaxResult updateOfficeSupplyUsage(@RequestBody OfficeSupplyUsage officeSupplyUsage) {
         return toAjax(officeSupplyUsageService.updateOfficeSupplyUsage(officeSupplyUsage));
+    }
+
+    @PostMapping("/updateStatus")
+    public AjaxResult updateOfficeSupplyUsageStatus(@RequestBody OfficeSupplyUsage officeSupplyUsage) {
+        return toAjax(officeSupplyUsageService.updateOfficeSupplyUsageStatus(officeSupplyUsage));
     }
 
     @GetMapping("/delete")

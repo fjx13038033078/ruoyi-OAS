@@ -1,5 +1,6 @@
 package com.ruoyi.office.mapper;
 
+import com.ruoyi.office.domain.OfficeSupplyPurchase;
 import com.ruoyi.office.domain.OfficeSupplyUsage;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -41,6 +42,14 @@ public interface OfficeSupplyUsageMapper {
      * @return 影响行数
      */
     int updateOfficeSupplyUsage(OfficeSupplyUsage officeSupplyUsage);
+
+    /**
+     * 更新审批
+     *
+     * @param officeSupplyUsage 领用记录
+     * @return 影响行数
+     */
+    int updateApprovalUserAndStatus(OfficeSupplyUsage officeSupplyUsage);
 
     /**
      * 删除办公用品领用记录
