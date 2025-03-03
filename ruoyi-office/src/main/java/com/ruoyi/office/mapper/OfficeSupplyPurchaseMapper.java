@@ -28,6 +28,14 @@ public interface OfficeSupplyPurchaseMapper {
     List<OfficeSupplyPurchase> getOfficeSupplyPurchasesByUserId(Long userId);
 
     /**
+     * 获取办公用品申购记录
+     *
+     * @param purchaseId 申购ID
+     * @return 办公用品申购记录
+     */
+    OfficeSupplyPurchase getOfficeSupplyPurchaseById(Long purchaseId);
+
+    /**
      * 添加办公用品申购记录
      *
      * @param officeSupplyPurchase 办公用品申购记录
@@ -42,6 +50,14 @@ public interface OfficeSupplyPurchaseMapper {
      * @return 影响行数
      */
     int updateOfficeSupplyPurchase(OfficeSupplyPurchase officeSupplyPurchase);
+
+    /**
+     * 更新审批
+     *
+     * @param officeSupplyPurchase 申购记录
+     * @return 影响行数
+     */
+    int updateApprovalUserAndStatus(OfficeSupplyPurchase officeSupplyPurchase);
 
     /**
      * 删除办公用品申购记录

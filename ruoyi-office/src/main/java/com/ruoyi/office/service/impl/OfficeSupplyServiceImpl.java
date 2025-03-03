@@ -61,6 +61,12 @@ public class OfficeSupplyServiceImpl implements OfficeSupplyService {
         return officeSupplyMapper.updateOfficeSupply(officeSupply) > 0;
     }
 
+    @Override
+    public boolean updateOfficeSupplyQuantity(OfficeSupply officeSupply) {
+        return officeSupplyMapper.updateOfficeSupplyQuantity(officeSupply) > 0;
+    }
+
+
     /**
      * 删除办公用品记录
      *

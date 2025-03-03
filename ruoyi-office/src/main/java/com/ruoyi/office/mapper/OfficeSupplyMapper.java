@@ -44,6 +44,14 @@ public interface OfficeSupplyMapper {
     int updateOfficeSupply(OfficeSupply officeSupply);
 
     /**
+     * 更新办公用品数量
+     *
+     * @param officeSupply 办公用品记录
+     * @return 影响行数
+     */
+    int updateOfficeSupplyQuantity(OfficeSupply officeSupply);
+
+    /**
      * 删除办公用品记录
      *
      * @param supplyId 办公用品ID

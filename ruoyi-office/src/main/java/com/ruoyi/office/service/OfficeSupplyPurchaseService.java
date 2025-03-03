@@ -42,6 +42,14 @@ public interface OfficeSupplyPurchaseService {
     boolean updateOfficeSupplyPurchase(OfficeSupplyPurchase officeSupplyPurchase);
 
     /**
+     * 更新办公用品申购记录的状态
+     *
+     * @param officeSupplyPurchase 办公用品申购记录
+     * @return 是否更新成功
+     */
+    boolean updateOfficeSupplyPurchaseStatus(OfficeSupplyPurchase officeSupplyPurchase);
+
+    /**
      * 删除办公用品申购记录
      *
      * @param purchaseId 申购ID

@@ -10,6 +10,7 @@
         <result property="userId" column="user_id"/>
         <result property="supplyId" column="supply_id"/>
         <result property="quantity" column="quantity"/>
+        <result property="purchaseReason" column="purchase_reason"/>
         <result property="status" column="status"/>
         <result property="approvalUser" column="approval_user"/>
         <result property="createTime" column="create_time"/>
@@ -18,37 +19,52 @@
     <!-- 查询所有办公用品申购记录 -->
     <select id="getAllOfficeSupplyPurchases" resultMap="OfficeSupplyPurchaseResult">
         SELECT *
-        FROM oa_office_supply_purchase
+        FROM oas_office_purchase
     </select>
 
     <!-- 根据用户ID查询办公用品申购记录 -->
     <select id="getOfficeSupplyPurchasesByUserId" parameterType="Long" resultMap="OfficeSupplyPurchaseResult">
         SELECT *
-        FROM oa_office_supply_purchase
+        FROM oas_office_purchase
         WHERE user_id = #{userId}
+    </select>
+
+    <!-- 根据ID查询办公用品申购记录 -->
+    <select id="getOfficeSupplyPurchaseById" parameterType="Long" resultMap="OfficeSupplyPurchaseResult">
+        SELECT *
+        FROM oas_office_purchase
+        WHERE purchase_id = #{purchaseId}
     </select>
 
     <!-- 添加办公用品申购记录 -->
     <insert id="addOfficeSupplyPurchase" parameterType="com.ruoyi.office.domain.OfficeSupplyPurchase">
-        INSERT INTO oa_office_supply_purchase (user_id, supply_id, quantity, status, approval_user, create_time)
-        VALUES (#{userId}, #{supplyId}, #{quantity}, #{status}, #{approvalUser}, #{createTime})
+        INSERT INTO oas_office_purchase (user_id, supply_id, quantity, purchase_reason, status, approval_user, create_time)
+        VALUES (#{userId}, #{supplyId}, #{quantity}, #{purchaseReason}, #{status}, #{approvalUser}, #{createTime})
     </insert>
 
     <!-- 更新办公用品申购记录 -->
     <update id="updateOfficeSupplyPurchase" parameterType="com.ruoyi.office.domain.OfficeSupplyPurchase">
-        UPDATE oa_office_supply_purchase
+        UPDATE oas_office_purchase
         SET user_id = #{userId},
             supply_id = #{supplyId},
             quantity = #{quantity},
+            purchase_reason = #{purchaseReason},
             status = #{status},
             approval_user = #{approvalUser},
             create_time = #{createTime}
         WHERE purchase_id = #{purchaseId}
     </update>
 
+    <!-- 更新办公用品申购记录的审批人ID和状态 -->
+    <update id="updateApprovalUserAndStatus" parameterType="com.ruoyi.office.domain.OfficeSupplyPurchase">
+        UPDATE oas_office_purchase
+        SET status = #{status},approval_user = #{approvalUser}
+        WHERE purchase_id = #{purchaseId}
+    </update>
+
     <!-- 删除办公用品申购记录 -->
     <delete id="deleteOfficeSupplyPurchase" parameterType="Long">
-        DELETE FROM oa_office_supply_purchase WHERE purchase_id = #{purchaseId}
+        DELETE FROM oas_office_purchase WHERE purchase_id = #{purchaseId}
     </delete>
 
 </mapper>

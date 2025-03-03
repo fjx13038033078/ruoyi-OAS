@@ -42,6 +42,14 @@ public interface OfficeSupplyService {
     boolean updateOfficeSupply(OfficeSupply officeSupply);
 
     /**
+     * 更新办公用品数量
+     *
+     * @param officeSupply 办公用品记录
+     * @return 是否更新成功
+     */
+    boolean updateOfficeSupplyQuantity(OfficeSupply officeSupply);
+
+    /**
      * 删除办公用品记录
      *
      * @param supplyId 办公用品ID

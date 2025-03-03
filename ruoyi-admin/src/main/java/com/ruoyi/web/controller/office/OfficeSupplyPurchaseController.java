@@ -2,6 +2,7 @@ package com.ruoyi.web.controller.office;
 
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
+import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.office.domain.OfficeSupplyPurchase;
 import com.ruoyi.office.service.OfficeSupplyPurchaseService;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +22,9 @@ public class OfficeSupplyPurchaseController extends BaseController {
     private final OfficeSupplyPurchaseService officeSupplyPurchaseService;
 
     @GetMapping("/listAll")
-    public AjaxResult listAllOfficeSupplyPurchases() {
+    public TableDataInfo listAllOfficeSupplyPurchases() {
         List<OfficeSupplyPurchase> purchases = officeSupplyPurchaseService.getAllOfficeSupplyPurchases();
-        return success(purchases);
+        return getDataTable(purchases);
     }
 
     @GetMapping("/getByUserId")
@@ -40,6 +41,11 @@ public class OfficeSupplyPurchaseController extends BaseController {
     @PostMapping("/update")
     public AjaxResult updateOfficeSupplyPurchase(@RequestBody OfficeSupplyPurchase officeSupplyPurchase) {
         return toAjax(officeSupplyPurchaseService.updateOfficeSupplyPurchase(officeSupplyPurchase));
+    }
+
+    @PostMapping("/updateStatus")
+    public AjaxResult updateOfficeSupplyPurchaseStatus(@RequestBody OfficeSupplyPurchase officeSupplyPurchase) {
+        return toAjax(officeSupplyPurchaseService.updateOfficeSupplyPurchaseStatus(officeSupplyPurchase));
     }
 
     @GetMapping("/delete")

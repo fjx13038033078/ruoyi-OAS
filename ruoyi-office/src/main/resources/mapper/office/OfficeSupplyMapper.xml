@@ -38,6 +38,12 @@
         WHERE supply_id = #{supplyId}
     </update>
 
+    <update id="updateOfficeSupplyQuantity" parameterType="com.ruoyi.office.domain.OfficeSupply">
+        UPDATE oas_office
+        SET quantity = #{quantity}
+        WHERE supply_id = #{supplyId}
+    </update>
+
     <!-- 删除办公用品记录 -->
     <delete id="deleteOfficeSupply" parameterType="Long">
         DELETE FROM oas_office WHERE supply_id = #{supplyId}

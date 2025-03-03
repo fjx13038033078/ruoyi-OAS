@@ -33,7 +33,7 @@ public class OfficeSupply implements Serializable {
     private String supplyName;
 
     /**
-     * 用品类别
+     * 用品类别(0-文具，1-电子设备，2-日常用品)
      */
     private Integer supplyType;
 

@@ -8,7 +8,7 @@
         <el-table-column label="总年假天数" prop="totalLeaveDays" align="center"></el-table-column>
         <el-table-column label="已使用天数" prop="usedLeaveDays" align="center"></el-table-column>
         <el-table-column label="剩余天数" prop="remainingLeaveDays" align="center"></el-table-column>
-        <el-table-column label="操作" align="center" width="100px">
+        <el-table-column label="操作" align="center" width="200px">
           <template #default="{ row }">
             <el-button type="primary" size="mini" @click="handleView(row)">查看</el-button>
           </template>

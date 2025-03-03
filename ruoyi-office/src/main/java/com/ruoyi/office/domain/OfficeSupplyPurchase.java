@@ -1,8 +1,10 @@
 package com.ruoyi.office.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -34,9 +36,21 @@ public class OfficeSupplyPurchase implements Serializable {
     private Long userId;
 
     /**
+     * 用户名
+     */
+    @TableField(exist = false)
+    private String userName;
+
+    /**
      * 办公用品ID，外键关联办公用品台账
      */
     private Long supplyId;
+
+    /**
+     * 办公用品名称
+    */
+    @TableField(exist = false)
+    private String supplyName;
 
     /**
      * 申购数量
@@ -49,9 +63,9 @@ public class OfficeSupplyPurchase implements Serializable {
     private String purchaseReason;
 
     /**
-     * 审批状态（待审批、已批准、已拒绝等）
+     * 审批状态（0-待审批、1-已批准、2-已拒绝）
      */
-    private String status;
+    private int status;
 
     /**
      * 审批人ID
@@ -59,8 +73,15 @@ public class OfficeSupplyPurchase implements Serializable {
     private Long approvalUser;
 
     /**
+     * 审批人姓名
+     */
+    @TableField(exist = false)
+    private String approvalUserName;
+
+    /**
      * 创建时间
      */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime createTime;
 
     private static final long serialVersionUID = 1L;

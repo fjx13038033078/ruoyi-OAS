@@ -35,6 +35,15 @@ export function updateOfficeSupplyPurchase(data) {
   })
 }
 
+// 更新办公用品申购记录状态
+export function updateOfficeSupplyPurchaseStatus(data) {
+  return request({
+    url: '/office/supply/purchase/updateStatus',
+    method: 'post',
+    data: data
+  })
+}
+
 // 删除办公用品申购记录
 export function deleteOfficeSupplyPurchase(purchaseId) {
   return request({
