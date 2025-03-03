@@ -103,7 +103,7 @@ public class AnnualLeaveServiceImpl implements AnnualLeaveService {
      */
     private void fillLeaveApplication(List<AnnualLeave> annualLeaves) {
         for (AnnualLeave annualLeave : annualLeaves){
-            Long userId = SecurityUtils.getUserId();
+            Long userId = annualLeave.getUserId();
             String userName = iSysUserService.selectUserById(userId).getNickName();
             annualLeave.setUserName(userName);
         }

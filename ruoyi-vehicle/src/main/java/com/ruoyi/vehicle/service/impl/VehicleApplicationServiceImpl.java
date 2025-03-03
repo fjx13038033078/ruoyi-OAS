@@ -71,7 +71,7 @@ public class VehicleApplicationServiceImpl implements VehicleApplicationService 
      */
     @Override
     public boolean addVehicleApplication(VehicleApplication application) {
-        application.setStatus(1); // 默认待审批
+        application.setStatus(0); // 默认待审批
         Long userId = SecurityUtils.getUserId();
         application.setUserId(userId);
         int rows = vehicleApplicationMapper.addApplication(application);

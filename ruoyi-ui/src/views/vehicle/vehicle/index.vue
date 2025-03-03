@@ -92,7 +92,7 @@
 
       <!-- 用车申请对话框 -->
       <el-dialog :visible.sync="applicationDialogVisible" title="用车申请" width="40%">
-        <el-form :model="vehicleApplicationForm" label-width="100px" ref="applicationFormRef" :rules="applicationRules">
+        <el-form :model="vehicleApplicationForm" label-width="120px" ref="applicationFormRef" :rules="applicationRules">
           <el-form-item label="用车开始时间" prop="startDate">
             <el-date-picker v-model="vehicleApplicationForm.startDate" type="datetime"
                             placeholder="请选择用车开始时间"></el-date-picker>

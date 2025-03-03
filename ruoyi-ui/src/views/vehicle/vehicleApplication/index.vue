@@ -63,8 +63,8 @@
         <el-form :model="approvalForm" label-width="100px" ref="approvalFormRef">
           <el-form-item label="审批状态">
             <el-select v-model="approvalForm.status" placeholder="请选择审批状态">
-              <el-option label="批准" :value="1"></el-option>
-              <el-option label="拒绝" :value="2"></el-option>
+              <el-option label="批准" :value=1></el-option>
+              <el-option label="拒绝" :value=2></el-option>
             </el-select>
           </el-form-item>
         </el-form>
@@ -147,7 +147,7 @@ export default {
     handleApproval(row) {
       this.approvalForm = {
         applicationId: row.applicationId,
-        status: 0, // 初始状态
+        status: null, // 初始状态
       };
       this.dialogVisible = true;
     },
