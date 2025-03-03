@@ -1,6 +1,7 @@
 package com.ruoyi.vehicle.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -33,21 +34,25 @@ public class VehicleApplication implements Serializable {
      */
     private Long userId;
 
+    @TableField(exist = false)
+    private String userName;
+
     /**
      * 车辆ID，外键关联车辆信息表
      */
     private Long vehicleId;
 
+    @TableField(exist = false)
+    private String vehicleNumber;
+
     /**
      * 用车开始时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime startDate;
 
     /**
      * 用车结束时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime endDate;
 
     /**
@@ -56,9 +61,9 @@ public class VehicleApplication implements Serializable {
     private String reason;
 
     /**
-     * 申请状态（待审批、已批准、已拒绝等）
+     * 申请状态（0-待审批、1-已批准、2-已拒绝等）
      */
-    private String status;
+    private int status;
 
     /**
      * 审批人ID

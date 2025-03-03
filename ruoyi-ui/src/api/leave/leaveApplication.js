@@ -35,6 +35,15 @@ export function updateLeaveApplication(data) {
   })
 }
 
+// 更新请假申请记录的状态
+export function updateLeaveApplicationStatus(data) {
+  return request({
+    url: '/leave/application/updateStatus',
+    method: 'post',
+    data: data
+  })
+}
+
 // 删除请假申请记录
 export function deleteLeaveApplication(leaveId) {
   return request({

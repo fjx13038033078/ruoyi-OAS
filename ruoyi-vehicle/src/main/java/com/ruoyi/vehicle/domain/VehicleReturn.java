@@ -1,8 +1,10 @@
 package com.ruoyi.vehicle.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -10,6 +12,7 @@ import lombok.ToString;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * @Author 范佳兴
@@ -33,9 +36,27 @@ public class VehicleReturn implements Serializable {
     private Long applicationId;
 
     /**
+     * 车辆编号
+     */
+    @TableField(exist = false)
+    private String vehicleNumber;
+
+    /**
+     * 归还人ID，外键关联用户表
+     */
+    private Long userId;
+
+    /**
+     * 用车人姓名
+     */
+    @TableField(exist = false)
+    private String userName;
+
+    /**
      * 归还日期
      */
-    private LocalDateTime returnDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date returnDate;
 
     /**
      * 归还时里程表读数

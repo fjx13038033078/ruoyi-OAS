@@ -2,6 +2,7 @@ package com.ruoyi.web.controller.leave;
 
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
+import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.leave.domain.AnnualLeave;
 import com.ruoyi.leave.service.AnnualLeaveService;
 import lombok.RequiredArgsConstructor;
@@ -25,9 +26,9 @@ public class AnnualLeaveController extends BaseController {
      * @return 年假记录列表
      */
     @GetMapping("/listAll")
-    public AjaxResult listAllAnnualLeaves() {
+    public TableDataInfo listAllAnnualLeaves() {
         List<AnnualLeave> annualLeaves = annualLeaveService.getAllAnnualLeaves();
-        return success(annualLeaves);
+        return getDataTable(annualLeaves);
     }
 
     /**

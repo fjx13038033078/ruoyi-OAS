@@ -1,8 +1,10 @@
 package com.ruoyi.leave.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -10,6 +12,7 @@ import lombok.ToString;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * @Author 范佳兴
@@ -32,20 +35,25 @@ public class LeaveApplication implements Serializable {
      */
     private Long userId;
 
+    @TableField(exist = false)
+    private String userName;
+
     /**
-     * 请假类型
+     * 请假类型（0-年假，1-病假，2-事假）
      */
     private Integer leaveType;
 
     /**
      * 请假开始时间
      */
-    private LocalDateTime startDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date startDate;
 
     /**
      * 请假结束时间
      */
-    private LocalDateTime endDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date endDate;
 
     /**
      * 请假理由
@@ -53,14 +61,20 @@ public class LeaveApplication implements Serializable {
     private String leaveReason;
 
     /**
-     * 请假状态（待审批、已批准、已拒绝等）
+     * 请假状态（0-待审批、1-已批准、2-已拒绝）
      */
-    private String status;
+    private int status;
 
     /**
      * 审批人ID
      */
     private Long approvalUser;
+
+    /**
+     * 审批人姓名
+     */
+    @TableField(exist = false)
+    private String approvalUserName;
 
     private static final long serialVersionUID = 1L;
 }

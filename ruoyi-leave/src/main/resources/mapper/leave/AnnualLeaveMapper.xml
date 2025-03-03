@@ -33,8 +33,7 @@
     <!-- 更新年假记录 -->
     <update id="updateAnnualLeave" parameterType="com.ruoyi.leave.domain.AnnualLeave">
         UPDATE oas_annual_leave
-        SET user_id = #{userId},
-            total_leave_days = #{totalLeaveDays},
+        SET total_leave_days = #{totalLeaveDays},
             used_leave_days = #{usedLeaveDays},
             remaining_leave_days = #{remainingLeaveDays}
         WHERE leave_id = #{leaveId}

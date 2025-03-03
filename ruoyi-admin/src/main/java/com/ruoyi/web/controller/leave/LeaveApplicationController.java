@@ -63,6 +63,16 @@ public class LeaveApplicationController extends BaseController {
     }
 
     /**
+     * 更新请假申请记录的状态
+     * @param leaveApplication 请假申请记录
+     * @return 操作结果
+     */
+    @PostMapping("/updateStatus")
+    public AjaxResult updateLeaveApplicationStatus(@RequestBody LeaveApplication leaveApplication) {
+        return toAjax(leaveApplicationService.updateLeaveApplicationStatus(leaveApplication));
+    }
+
+    /**
      * 删除请假申请记录
      * @param leaveId 请假申请ID
      * @return 操作结果

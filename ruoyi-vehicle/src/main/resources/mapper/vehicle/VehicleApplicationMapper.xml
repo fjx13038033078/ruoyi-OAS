@@ -38,8 +38,7 @@
     <!-- 更新用车申请 -->
     <update id="updateApplication" parameterType="com.ruoyi.vehicle.domain.VehicleApplication">
         UPDATE oas_vehicle_application
-        SET user_id = #{userId}, vehicle_id = #{vehicleId}, start_date = #{startDate}, end_date = #{endDate},
-            reason = #{reason}, status = #{status}, approval_user = #{approvalUser}
+        SET status = #{status}, approval_user = #{approvalUser}
         WHERE application_id = #{applicationId}
     </update>
 

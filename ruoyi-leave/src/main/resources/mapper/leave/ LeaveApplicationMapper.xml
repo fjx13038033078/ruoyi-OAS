@@ -27,22 +27,34 @@
         WHERE user_id = #{userId}
     </select>
 
+    <select id="getLeaveApplicationById" parameterType="Long" resultMap="LeaveApplicationResult">
+        SELECT leave_id, user_id, leave_type, start_date, end_date, leave_reason, status, approval_user
+        FROM oas_leave_application
+        WHERE leave_id = #{leaveId}
+    </select>
+
     <!-- 添加请假申请记录 -->
     <insert id="addLeaveApplication" parameterType="com.ruoyi.leave.domain.LeaveApplication">
         INSERT INTO oas_leave_application (user_id, leave_type, start_date, end_date, leave_reason, status, approval_user)
-        VALUES (#{userId}, #{leaveType}, #{startDate}, #{endDate}, #{leaveReason}, #{status}, #{approvalUser})
+        VALUES (#{userId}, #{leaveType}, #{startDate}, #{endDate}, #{leaveReason}, 0, #{approvalUser})
     </insert>
 
     <!-- 更新请假申请记录 -->
     <update id="updateLeaveApplication" parameterType="com.ruoyi.leave.domain.LeaveApplication">
         UPDATE oas_leave_application
-        SET user_id = #{userId},
-            leave_type = #{leaveType},
+        SET leave_type = #{leaveType},
             start_date = #{startDate},
             end_date = #{endDate},
             leave_reason = #{leaveReason},
-            status = #{status},
+            status = 0,
             approval_user = #{approvalUser}
+        WHERE leave_id = #{leaveId}
+    </update>
+
+    <update id="updateApprovalUserAndStatus" parameterType="com.ruoyi.leave.domain.LeaveApplication">
+        UPDATE oas_leave_application
+        SET approval_user = #{approvalUser},
+            status = #{status}
         WHERE leave_id = #{leaveId}
     </update>
 

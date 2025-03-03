@@ -1,5 +1,6 @@
 package com.ruoyi.leave.mapper;
 
+import com.ruoyi.leave.domain.AnnualLeave;
 import com.ruoyi.leave.domain.LeaveApplication;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -27,6 +28,14 @@ public interface LeaveApplicationMapper {
     List<LeaveApplication> getLeaveApplicationsByUserId(Long userId);
 
     /**
+     * 根据请假申请ID获取请假申请记录
+     *
+     * @param leaveId 请假申请ID
+     * @return 请假申请记录
+     */
+    LeaveApplication getLeaveApplicationById(Long leaveId);
+
+    /**
      * 添加请假申请记录
      *
      * @param leaveApplication 请假申请记录
@@ -41,6 +50,14 @@ public interface LeaveApplicationMapper {
      * @return 影响行数
      */
     int updateLeaveApplication(LeaveApplication leaveApplication);
+
+    /**
+     * 更新审批
+     *
+     * @param leaveApplication 年假记录
+     * @return 影响行数
+     */
+    int updateApprovalUserAndStatus(LeaveApplication leaveApplication);
 
     /**
      * 删除请假申请记录

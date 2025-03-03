@@ -33,6 +33,11 @@ public class AnnualLeave implements Serializable {
     private Long userId;
 
     /**
+     * 用户名
+     */
+    private String userName;
+
+    /**
      * 总年假天数
      */
     private Integer totalLeaveDays;

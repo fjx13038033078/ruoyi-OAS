@@ -42,6 +42,14 @@ public interface LeaveApplicationService {
     boolean updateLeaveApplication(LeaveApplication leaveApplication);
 
     /**
+     * 更新请假申请记录的状态
+     *
+     * @param leaveApplication 请假申请记录
+     * @return 是否更新成功
+     */
+    boolean updateLeaveApplicationStatus(LeaveApplication leaveApplication);
+
+    /**
      * 删除请假申请记录
      *
      * @param leaveId 请假申请ID

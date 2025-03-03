@@ -6,6 +6,7 @@
     <resultMap id="OasVehicleReturnResult" type="com.ruoyi.vehicle.domain.VehicleReturn">
         <id property="returnId" column="return_id"/>
         <result property="applicationId" column="application_id"/>
+        <result property="userId" column="user_id"/>
         <result property="returnDate" column="return_date"/>
         <result property="odometerReading" column="odometer_reading"/>
     </resultMap>
@@ -20,10 +21,15 @@
         SELECT * FROM oas_vehicle_return WHERE application_id = #{applicationId}
     </select>
 
+    <!-- 根据用户ID获取归还记录 -->
+    <select id="getReturnsByUserId" parameterType="Long" resultMap="OasVehicleReturnResult">
+        SELECT * FROM oas_vehicle_return WHERE user_id = #{userId}
+    </select>
+
     <!-- 添加车辆归还记录 -->
     <insert id="addReturn" parameterType="com.ruoyi.vehicle.domain.VehicleReturn">
-        INSERT INTO oas_vehicle_return (application_id, return_date, odometer_reading)
-        VALUES (#{applicationId}, #{returnDate}, #{odometerReading})
+        INSERT INTO oas_vehicle_return (application_id, user_id, return_date, odometer_reading)
+        VALUES (#{applicationId}, #{userId}, #{returnDate}, #{odometerReading})
     </insert>
 
     <!-- 更新车辆归还记录 -->

@@ -1,5 +1,9 @@
 package com.ruoyi.vehicle.service.impl;
 
+import com.ruoyi.common.utils.SecurityUtils;
+import com.ruoyi.system.service.ISysRoleService;
+import com.ruoyi.system.service.ISysUserService;
+import com.ruoyi.vehicle.domain.Vehicle;
 import com.ruoyi.vehicle.domain.VehicleApplication;
 import com.ruoyi.vehicle.mapper.VehicleApplicationMapper;
 import com.ruoyi.vehicle.service.VehicleApplicationService;
@@ -7,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static com.ruoyi.common.utils.PageUtils.startPage;
 
 /**
  * @Author 范佳兴
@@ -18,6 +24,12 @@ public class VehicleApplicationServiceImpl implements VehicleApplicationService 
 
     private final VehicleApplicationMapper vehicleApplicationMapper;
 
+    private final ISysUserService iSysUserService;
+
+    private final VehicleServiceImpl vehicleService;
+
+    private final ISysRoleService iSysRoleService;
+
     /**
      * 查询所有用车申请
      *
@@ -25,7 +37,19 @@ public class VehicleApplicationServiceImpl implements VehicleApplicationService 
      */
     @Override
     public List<VehicleApplication> getAllVehicleApplications() {
-        return vehicleApplicationMapper.getAllApplications();
+        Long userId = SecurityUtils.getUserId();
+        String role = iSysRoleService.selectStringRoleByUserId(userId);
+        if (role.equals("admin")) {
+            startPage();
+            List<VehicleApplication> allVehicleApplications = vehicleApplicationMapper.getAllApplications();
+            fillVehicleApplication(allVehicleApplications);
+            return allVehicleApplications;
+        } else {
+            startPage();
+            List<VehicleApplication> vehicleApplicationsByUserId = vehicleApplicationMapper.getApplicationsByUserId(userId);
+            fillVehicleApplication(vehicleApplicationsByUserId);
+            return vehicleApplicationsByUserId;
+        }
     }
 
     /**
@@ -47,7 +71,9 @@ public class VehicleApplicationServiceImpl implements VehicleApplicationService 
      */
     @Override
     public boolean addVehicleApplication(VehicleApplication application) {
-        application.setStatus("待审批"); // 默认待审批
+        application.setStatus(1); // 默认待审批
+        Long userId = SecurityUtils.getUserId();
+        application.setUserId(userId);
         int rows = vehicleApplicationMapper.addApplication(application);
         return rows > 0;
     }
@@ -60,6 +86,8 @@ public class VehicleApplicationServiceImpl implements VehicleApplicationService 
      */
     @Override
     public boolean updateVehicleApplication(VehicleApplication application) {
+        Long userId = SecurityUtils.getUserId();
+        application.setApprovalUser(userId);
         int rows = vehicleApplicationMapper.updateApplication(application);
         return rows > 0;
     }
@@ -74,5 +102,16 @@ public class VehicleApplicationServiceImpl implements VehicleApplicationService 
     public boolean deleteVehicleApplication(Long applicationId) {
         int rows = vehicleApplicationMapper.deleteApplication(applicationId);
         return rows > 0;
+    }
+
+    private void fillVehicleApplication(List<VehicleApplication> applications) {
+        for (VehicleApplication application : applications) {
+            Long vehicleId = application.getVehicleId();
+            Vehicle vehicle = vehicleService.getVehicleById(vehicleId);
+            application.setVehicleNumber(vehicle.getVehicleNumber());
+            Long userId = application.getUserId();
+            String userName = iSysUserService.selectUserById(userId).getNickName();
+            application.setUserName(userName);
+        }
     }
 }

@@ -1,12 +1,19 @@
 package com.ruoyi.leave.service.impl;
 
+import com.ruoyi.common.utils.SecurityUtils;
 import com.ruoyi.leave.domain.AnnualLeave;
+import com.ruoyi.leave.domain.LeaveApplication;
 import com.ruoyi.leave.mapper.AnnualLeaveMapper;
 import com.ruoyi.leave.service.AnnualLeaveService;
+import com.ruoyi.system.service.ISysRoleService;
+import com.ruoyi.system.service.ISysUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static com.ruoyi.common.utils.PageUtils.startPage;
 
 /**
  * @Author 范佳兴
@@ -18,6 +25,10 @@ public class AnnualLeaveServiceImpl implements AnnualLeaveService {
 
     private final AnnualLeaveMapper annualLeaveMapper;
 
+    private final ISysUserService iSysUserService;
+
+    private final ISysRoleService iSysRoleService;
+
     /**
      * 获取所有年假记录
      *
@@ -25,7 +36,20 @@ public class AnnualLeaveServiceImpl implements AnnualLeaveService {
      */
     @Override
     public List<AnnualLeave> getAllAnnualLeaves() {
-        return annualLeaveMapper.getAllAnnualLeaves();
+        Long userId = SecurityUtils.getUserId();
+        String role = iSysRoleService.selectStringRoleByUserId(userId);
+        if (role.equals("admin")) {
+            startPage();
+            List<AnnualLeave> allAnnualLeaves = annualLeaveMapper.getAllAnnualLeaves();
+            fillLeaveApplication(allAnnualLeaves);
+            return allAnnualLeaves;
+        } else {
+            startPage();
+            AnnualLeave annualLeaveByUserId = annualLeaveMapper.getAnnualLeaveByUserId(userId);
+            List<AnnualLeave> annualLeaveByUser = new ArrayList<>();
+            annualLeaveByUser.add(annualLeaveByUserId);
+            return annualLeaveByUser;
+        }
     }
 
     /**
@@ -70,5 +94,18 @@ public class AnnualLeaveServiceImpl implements AnnualLeaveService {
     @Override
     public boolean deleteAnnualLeave(Long leaveId) {
         return annualLeaveMapper.deleteAnnualLeave(leaveId) > 0;
+    }
+
+    /**
+     * 填充请假申请信息
+     *
+     * @param annualLeaves 请假申请列表
+     */
+    private void fillLeaveApplication(List<AnnualLeave> annualLeaves) {
+        for (AnnualLeave annualLeave : annualLeaves){
+            Long userId = SecurityUtils.getUserId();
+            String userName = iSysUserService.selectUserById(userId).getNickName();
+            annualLeave.setUserName(userName);
+        }
     }
 }

@@ -21,6 +21,11 @@ public interface VehicleReturnMapper {
     VehicleReturn getReturnByApplicationId(Long applicationId);
 
     /**
+     * 根据用户ID获取车辆归还记录
+     */
+    List<VehicleReturn> getReturnsByUserId(Long userId);
+
+    /**
      * 添加车辆归还记录
      */
     int addReturn(VehicleReturn vehicleReturn);
