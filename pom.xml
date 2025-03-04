@@ -197,6 +197,7 @@
         <module>ruoyi-vehicle</module>
         <module>ruoyi-office</module>
         <module>ruoyi-leave</module>
+        <module>ruoyi-point</module>
     </modules>
     <packaging>pom</packaging>
 

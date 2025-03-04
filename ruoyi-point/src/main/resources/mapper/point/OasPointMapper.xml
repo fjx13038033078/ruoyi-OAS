@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.point.mapper.OasPointMapper">
+
+    <resultMap id="OasPointResult" type="com.ruoyi.point.domain.OasPoint">
+        <id property="pointId" column="point_id"/>
+        <result property="pointName" column="point_name"/>
+        <result property="userName" column="user_name"/>
+        <result property="pointNext" column="point_next"/>
+        <result property="pointBack" column="point_back"/>
+    </resultMap>
+
+    <select id="getAllPoints" resultMap="OasPointResult">
+        SELECT * FROM oas_point
+    </select>
+
+    <select id="getPointById" parameterType="Long" resultMap="OasPointResult">
+        SELECT * FROM oas_point WHERE point_id = #{pointId}
+    </select>
+
+    <insert id="addPoint" parameterType="com.ruoyi.point.domain.OasPoint">
+        INSERT INTO oas_point (point_name, user_name, point_next, point_back)
+        VALUES (#{pointName}, #{userName}, #{pointNext}, #{pointBack})
+    </insert>
+
+    <update id="updatePoint" parameterType="com.ruoyi.point.domain.OasPoint">
+        UPDATE oas_point
+        SET point_name = #{pointName}, user_name = #{userName}, point_next = #{pointNext}, point_back = #{pointBack}
+        WHERE point_id = #{pointId}
+    </update>
+
+    <delete id="deletePoint" parameterType="Long">
+        DELETE FROM oas_point WHERE point_id = #{pointId}
+    </delete>
+
+</mapper>
