@@ -159,7 +159,7 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
      */
     private void fillLeaveApplication(List<LeaveApplication> leaveApplications) {
         for (LeaveApplication leaveApplication : leaveApplications) {
-            Long userId = SecurityUtils.getUserId();
+            Long userId = leaveApplication.getUserId();
             leaveApplication.setUserName(iSysUserService.selectUserById(userId).getNickName());
             if (leaveApplication.getApprovalUser() != null){
                 String nickName = iSysUserService.selectUserById(leaveApplication.getApprovalUser()).getNickName();
