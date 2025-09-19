@@ -55,7 +55,7 @@
             </el-table>
           </el-card>
         </el-col>
-        <!-- 场馆场地数量 -->
+        <!-- 平台简介和AI助手 -->
         <el-col :span="12">
           <el-card style="margin-right: 20px; height: 420px;">
             <h3 slot="header">平台简介</h3>
@@ -68,6 +68,41 @@
         <div slot="title" style="text-align: center;">{{ selectedNotice.title }}</div>
         <div v-html="selectedNotice.content" class="notice-content"></div>
       </el-dialog>
+      
+      <!-- AI智能助手弹窗 -->
+      <el-dialog 
+        title="AI智能助手" 
+        :visible.sync="showChatbotDialog" 
+        width="80%" 
+        append-to-body
+        :before-close="handleChatbotClose">
+        <div slot="title" style="text-align: center;">
+          <i class="el-icon-chat-dot-round"></i>
+          AI智能助手
+        </div>
+        <div class="chatbot-container">
+          <iframe
+            v-if="showChatbotDialog"
+            src="http://localhost/chatbot/1V9bomDXkQXgVNQS"
+            style="width: 100%; height: 600px; border: none; border-radius: 8px;"
+            frameborder="0"
+            allow="microphone">
+          </iframe>
+        </div>
+      </el-dialog>
+      
+      <!-- 智能机器人浮动按钮 -->
+      <div class="chatbot-float-button" @click="openChatbot">
+        <el-tooltip content="AI智能助手" placement="left">
+          <el-button 
+            type="primary" 
+            icon="el-icon-chat-dot-round" 
+            circle 
+            size="large"
+            class="float-btn">
+          </el-button>
+        </el-tooltip>
+      </div>
     </div>
   </div>
 </template>
@@ -113,6 +148,7 @@ export default {
         content: ''
       },
       showNoticeDialog: false,
+      showChatbotDialog: false,
       // 表单参数
       form: {},
       // 表单校验
@@ -147,6 +183,17 @@ export default {
         this.showNoticeDialog = true;
         this.loading = false;
       });
+    },
+    /** 打开AI助手弹窗 */
+    openChatbot() {
+      this.showChatbotDialog = true;
+    },
+    /** 关闭AI助手弹窗 */
+    handleChatbotClose(done) {
+      this.showChatbotDialog = false;
+      if (done) {
+        done();
+      }
     },
   }
 };
@@ -187,6 +234,7 @@ export default {
   transform-origin: bottom;
   line-height: 52px;
   background: linear-gradient(0deg, #000 0, transparent 80%);
+  background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
   opacity: 0.5;
@@ -208,6 +256,56 @@ export default {
   100% {
     transform: translateX(-100%);
   }
+}
+
+.chatbot-container {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+}
+
+.chatbot-container iframe {
+  transition: all 0.3s ease;
+}
+
+.chatbot-container:hover iframe {
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.15);
+}
+
+/* 智能机器人浮动按钮样式 */
+.chatbot-float-button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+}
+
+.float-btn {
+  width: 60px !important;
+  height: 60px !important;
+  font-size: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+}
+
+.float-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.float-btn:active {
+  transform: scale(0.95);
+}
+
+/* 弹窗中的聊天机器人容器 */
+.el-dialog .chatbot-container {
+  margin: -20px -20px 0 -20px;
+}
+
+.el-dialog .chatbot-container iframe {
+  border-radius: 0 0 8px 8px;
 }
 
 </style>
